@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( MotionDetect )
+find_package( OpenCV REQUIRED )
+add_executable( MotionDetect MotionDetect.cpp )
+target_link_libraries( MotionDetect ${OpenCV_LIBS})
