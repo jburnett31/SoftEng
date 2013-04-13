@@ -91,49 +91,6 @@ namespace MotionDetectorSample
             }
         }
 
-        // Open JPEG URL
-        private void openJPEGURLToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            URLForm form = new URLForm( );
-
-            form.Description = "Enter URL of an updating JPEG from a web camera:";
-            form.URLs = new string[]
-				{
-					"http://195.243.185.195/axis-cgi/jpg/image.cgi?camera=1"
-				};
-
-            if ( form.ShowDialog( this ) == DialogResult.OK )
-            {
-                // create video source
-                JPEGStream jpegSource = new JPEGStream( form.URL );
-
-                // open it
-                OpenVideoSource( jpegSource );
-            }
-        }
-
-        // Open MJPEG URL
-        private void openMJPEGURLToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            URLForm form = new URLForm( );
-
-            form.Description = "Enter URL of an MJPEG video stream:";
-            form.URLs = new string[]
-				{
-					"http://195.243.185.195/axis-cgi/mjpg/video.cgi?camera=3",
-					"http://195.243.185.195/axis-cgi/mjpg/video.cgi?camera=4",
-				};
-
-            if ( form.ShowDialog( this ) == DialogResult.OK )
-            {
-                // create video source
-                MJPEGStream mjpegSource = new MJPEGStream( form.URL );
-
-                // open it
-                OpenVideoSource( mjpegSource );
-            }
-        }
-
         // Open local video capture device
         private void localVideoCaptureDeviceToolStripMenuItem_Click( object sender, EventArgs e )
         {
@@ -349,13 +306,6 @@ namespace MotionDetectorSample
             SetMotionDetectionAlgorithm( null );
         }
 
-        // Set Two Frames Difference motion detection algorithm
-        private void twoFramesDifferenceToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            motionDetectionType = 1;
-            SetMotionDetectionAlgorithm( new TwoFramesDifferenceDetector( ) );
-        }
-
         // Set Simple Background Modeling motion detection algorithm
         private void simpleBackgroundModelingToolStripMenuItem_Click( object sender, EventArgs e )
         {
@@ -370,92 +320,11 @@ namespace MotionDetectorSample
             SetMotionProcessingAlgorithm( null );
         }
 
-        // Set motion area highlighting
-        private void motionAreaHighlightingToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            motionProcessingType = 1;
-            SetMotionProcessingAlgorithm( new MotionAreaHighlighting( ) );
-        }
-
-        // Set motion borders highlighting
-        private void motionBorderHighlightingToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            motionProcessingType = 2;
-            SetMotionProcessingAlgorithm( new MotionBorderHighlighting( ) );
-        }
-
         // Set objects' counter
         private void blobCountingToolStripMenuItem_Click( object sender, EventArgs e )
         {
             motionProcessingType = 3;
             SetMotionProcessingAlgorithm( new BlobCountingObjectsProcessing( ) );
-        }
-
-        // Set grid motion processing
-        private void gridMotionAreaProcessingToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            motionProcessingType = 4;
-            SetMotionProcessingAlgorithm( new GridMotionAreaProcessing( 32, 32 ) );
-        }
-
-        // Set new motion detection algorithm
-        private void SetMotionDetectionAlgorithm( IMotionDetector detectionAlgorithm )
-        {
-            lock ( this )
-            {
-                detector.MotionDetectionAlgorithm = detectionAlgorithm;
-                motionHistory.Clear( );
-
-                if ( detectionAlgorithm is TwoFramesDifferenceDetector )
-                {
-                    if (
-                        ( detector.MotionProcessingAlgorithm is MotionBorderHighlighting ) ||
-                        ( detector.MotionProcessingAlgorithm is BlobCountingObjectsProcessing ) )
-                    {
-                        motionProcessingType = 1;
-                        SetMotionProcessingAlgorithm( new MotionAreaHighlighting( ) );
-                    }
-                }
-            }
-        }
-
-        // Set new motion processing algorithm
-        private void SetMotionProcessingAlgorithm( IMotionProcessing processingAlgorithm )
-        {
-            lock ( this )
-            {
-                detector.MotionProcessingAlgorithm = processingAlgorithm;
-            }
-        }
-
-        // Motion menu is opening
-        private void motionToolStripMenuItem_DropDownOpening( object sender, EventArgs e )
-        {
-            ToolStripMenuItem[] motionDetectionItems = new ToolStripMenuItem[]
-            {
-                noneToolStripMenuItem1, twoFramesDifferenceToolStripMenuItem,
-                simpleBackgroundModelingToolStripMenuItem
-            };
-            ToolStripMenuItem[] motionProcessingItems = new ToolStripMenuItem[]
-            {
-                noneToolStripMenuItem2, motionAreaHighlightingToolStripMenuItem,
-                motionBorderHighlightingToolStripMenuItem, blobCountingToolStripMenuItem,
-                gridMotionAreaProcessingToolStripMenuItem
-            };
-
-            for ( int i = 0; i < motionDetectionItems.Length; i++ )
-            {
-                motionDetectionItems[i].Checked = ( i == motionDetectionType );
-            }
-            for ( int i = 0; i < motionProcessingItems.Length; i++ )
-            {
-                motionProcessingItems[i].Checked = ( i == motionProcessingType );
-            }
-
-            // enable/disable some motion processing algorithm depending on detection algorithm
-            bool enabled = ( motionDetectionType != 1 );
-            motionBorderHighlightingToolStripMenuItem.Enabled = enabled;
-            blobCountingToolStripMenuItem.Enabled = enabled;
         }
 
         // On "Define motion regions" menu item selected
@@ -490,49 +359,6 @@ namespace MotionDetectorSample
                 "Message", MessageBoxButtons.OK, MessageBoxIcon.Information );
         }
 
-        // On opening of Tools menu
-        private void toolsToolStripMenuItem_DropDownOpening( object sender, EventArgs e )
-        {
-            localVideoCaptureSettingsToolStripMenuItem.Enabled =
-                ( ( videoSource != null ) && ( videoSource is VideoCaptureDevice ) );
-            crossbarVideoSettingsToolStripMenuItem.Enabled =
-                ( ( videoSource != null ) && ( videoSource is VideoCaptureDevice ) && ( videoSource.IsRunning ) );
-        }
-
-        // Display properties of local capture device
-        private void localVideoCaptureSettingsToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            if ( ( videoSource != null ) && ( videoSource is VideoCaptureDevice ) )
-            {
-                try
-                {
-                    ( (VideoCaptureDevice) videoSource ).DisplayPropertyPage( this.Handle );
-                }
-                catch ( NotSupportedException ex )
-                {
-                    MessageBox.Show( ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error );
-                }
-            }
-        }
-
-        // Display properties of crossbar filter
-        private void crossbarVideoSettingsToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            if ( ( videoSource != null ) && ( videoSource is VideoCaptureDevice ) && ( videoSource.IsRunning ) )
-            {
-                Console.WriteLine( "Current input: " + ( (VideoCaptureDevice) videoSource ).CrossbarVideoInput );
-
-                try
-                {
-                    ( (VideoCaptureDevice) videoSource ).DisplayCrossbarPropertyPage( this.Handle );
-                }
-                catch ( NotSupportedException ex )
-                {
-                    MessageBox.Show( ex.Message, "Error",  MessageBoxButtons.OK, MessageBoxIcon.Error );
-                }
-            }
-        }
-
         // Timer used for flashing in the case if motion is detected
         private void alarmTimer_Tick( object sender, EventArgs e )
         {
@@ -541,12 +367,6 @@ namespace MotionDetectorSample
                 videoSourcePlayer.BorderColor = ( flash % 2 == 1 ) ? Color.Black : Color.Red;
                 flash--;
             }
-        }
-
-        // Change status of menu item when it is clicked
-        private void showMotionHistoryToolStripMenuItem_Click( object sender, EventArgs e )
-        {
-            showMotionHistoryToolStripMenuItem.Checked = !showMotionHistoryToolStripMenuItem.Checked;
         }
     }
 }
