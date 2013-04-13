@@ -12,6 +12,12 @@ namespace YAMD
         ConcurrentQueue<T> q = new ConcurrentQueue<T>();
 
         public int Limit { get; set; }
+        
+        public int Size()
+        {
+            return q.Count;
+        }
+
         public void Enqueue(T obj)
         {
             q.Enqueue(obj);
@@ -20,6 +26,13 @@ namespace YAMD
                 T overflow;
                 while (q.Count > Limit && q.TryDequeue(out overflow)) ;
             }
+        }
+
+        public T Dequeue()
+        {
+            T obj;
+            q.TryDequeue(out obj);
+            return obj;
         }
     }
 }

@@ -8,6 +8,7 @@ using AForge.Vision.Motion;
 using AForge.Video;
 using AForge.Video.VFW;
 using System.Diagnostics;
+using System.Drawing;
 
 namespace YAMD
 {
@@ -19,6 +20,7 @@ namespace YAMD
         const float stopCondition = 5.0f;
         AVIWriter videoRecorder;
         Thread detectorThread;
+        FixedSizeQueue<Bitmap> buffer;
         public bool Running
         { get; set;}
 
@@ -31,6 +33,8 @@ namespace YAMD
             timer = new Stopwatch();
             videoRecorder = new AVIWriter("wmv3");
             Running = false;
+            buffer = new FixedSizeQueue<Bitmap>();
+            buffer.Limit = 50;
         }
 
         public ~YAMDDetector()
@@ -38,16 +42,23 @@ namespace YAMD
             videoRecorder.Close();
         }
 
+        private void mainLoop()
+        {
+            while (Running)
+            {
+            }
+        }
+
         public void Start()
         {
-            //main loop
             Running = true;
-            detectorThread = 
+            detectorThread = new Thread(new ThreadStart(mainLoop));
         }
 
         public void Stop()
         {
             Running = false;
+            detectorThread.Join();
         }
 
         public String RecordVideo()
@@ -57,6 +68,15 @@ namespace YAMD
             //videoRecorder.AddFrame(image)
             
             return videoName;
+        }
+
+        private void consBuffer()
+        {
+            for (int i = 0; i < buffer.Size(); i++ )
+            {
+                Bitmap img = buffer.Dequeue();
+                videoRecorder.AddFrame(img);
+            }
         }
     }
 }
