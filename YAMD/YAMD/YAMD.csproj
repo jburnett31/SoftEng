@@ -64,11 +64,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainForm-ex.cs" />
+    <Compile Include="MainForm-ex.designer.cs">
+      <DependentUpon>MainForm-ex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MotionTest.cs" />
     <Compile Include="FixedSizeQueue.cs" />
     <Compile Include="Magnitude.cs" />
-    <Compile Include="MainForm-ex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="YAMDDetector.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MainForm-ex.resx">
+      <DependentUpon>MainForm-ex.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

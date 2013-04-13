@@ -17,7 +17,7 @@ namespace YAMD
     public class YAMDDetector
     {
         MotionDetector detector;
-        IVideoSource inputStream;
+        AsyncVideoSource inputStream;
         Stopwatch timer;
         const float stopCondition = 5.0f;
         AVIWriter videoRecorder;
@@ -33,8 +33,9 @@ namespace YAMD
         {
             detector = new MotionDetector(
                 new SimpleBackgroundModelingDetector(),
-                new BlobCountingObjectsProcessing());
-            inputStream = source;
+                new BlobCountingObjectsProcessing(true));
+            //async video source processes images in a separate thread and uses the NewFrame event
+            inputStream = new AsyncVideoSource(source);
             this.low = low;
             this.medium = medium;
             this.high = high;
@@ -47,26 +48,19 @@ namespace YAMD
 
         public ~YAMDDetector()
         {
-            videoRecorder.Close();
-        }
-
-        private void mainLoop()
-        {
-            while (Running)
-            {
-
-            }
+           
         }
 
         public void Start()
         {
             Running = true;
             inputStream.Start();
-            detectorThread = new Thread(new ThreadStart(mainLoop));
+            //detectorThread = new Thread(new ThreadStart(mainLoop));
         }
 
         public void Stop()
         {
+            videoRecorder.Close();
             Running = false;
             inputStream.Stop();
             detectorThread.Join();
@@ -111,56 +105,17 @@ namespace YAMD
                 }
 
                 if (showMotionHistoryToolStripMenuItem.Checked)
-                    DrawMotionHistory(image);        
+                    DrawMotionHistory(image);
             }
         }
 
-        private void DrawMotionHistory(Bitmap image)
+        private bool checkMagnitude(Magnitude m, int duration, int sensitivity)
         {
-            Color greenColor = Color.FromArgb(128, 0, 255, 0);
-            Color yellowColor = Color.FromArgb(128, 255, 255, 0);
-            Color redColor = Color.FromArgb(128, 255, 0, 0);
-
-            BitmapData bitmapData = image.LockBits(new Rectangle(0, 0, image.Width, image.Height),
-                ImageLockMode.ReadWrite, image.PixelFormat);
-
-            int t1 = (int)(motionAlarmLevel * 500);
-            int t2 = (int)(0.075 * 500);
-
-            for (int i = 1, n = motionHistory.Count; i <= n; i++)
+            if (duration >= m.Duration() && sensitivity > m.Duration())
             {
-                int motionBarLength = (int)(motionHistory[n - i] * 500);
-
-                if (motionBarLength == 0)
-                    continue;
-
-                if (motionBarLength > 50)
-                    motionBarLength = 50;
-
-                Drawing.Line(bitmapData,
-                    new IntPoint(image.Width - i, image.Height - 1),
-                    new IntPoint(image.Width - i, image.Height - 1 - motionBarLength),
-                    greenColor);
-
-                if (motionBarLength > t1)
-                {
-                    Drawing.Line(bitmapData,
-                        new IntPoint(image.Width - i, image.Height - 1 - t1),
-                        new IntPoint(image.Width - i, image.Height - 1 - motionBarLength),
-                        yellowColor);
-                }
-
-                if (motionBarLength > t2)
-                {
-                    Drawing.Line(bitmapData,
-                        new IntPoint(image.Width - i, image.Height - 1 - t2),
-                        new IntPoint(image.Width - i, image.Height - 1 - motionBarLength),
-                        redColor);
-                }
+                return true;
             }
-
-            image.UnlockBits(bitmapData);
+            return false;
         }
-
     }
 }

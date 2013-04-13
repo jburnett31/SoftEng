@@ -11,16 +11,17 @@ namespace YAMD
     class Magnitude
     {
         private Level severity;
-        private double duration;
+        // duration should be in milliseconds to avoid floating point comparisons
+        private int duration;
         private int sensitivity;
         public Level Severity()
         { return severity; }
-        public double Duration()
+        public int Duration()
         { return duration; }
         public int Sensitivity()
         { return sensitivity; }
 
-        public Magnitude(Level severity, double duration, int sensitivity)
+        public Magnitude(Level severity, int duration, int sensitivity)
         {
             this.severity = severity;
             this.duration = duration;
