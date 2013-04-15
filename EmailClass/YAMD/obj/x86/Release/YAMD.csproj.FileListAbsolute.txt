@@ -1,0 +1,4 @@
+C:\Users\Rachel\Documents\Visual Studio 2010\Projects\YAMD\YAMD\bin\Release\YAMD.exe
+C:\Users\Rachel\Documents\Visual Studio 2010\Projects\YAMD\YAMD\bin\Release\YAMD.pdb
+C:\Users\Rachel\Documents\Visual Studio 2010\Projects\YAMD\YAMD\obj\x86\Release\YAMD.exe
+C:\Users\Rachel\Documents\Visual Studio 2010\Projects\YAMD\YAMD\obj\x86\Release\YAMD.pdb

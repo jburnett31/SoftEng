@@ -1,0 +1,5 @@
+C:\Users\Rachel\Documents\Visual Studio 2010\Projects\YAMD\YAMD\bin\Debug\YAMD.exe
+C:\Users\Rachel\Documents\Visual Studio 2010\Projects\YAMD\YAMD\bin\Debug\YAMD.pdb
+C:\Users\Rachel\Documents\Visual Studio 2010\Projects\YAMD\YAMD\obj\x86\Debug\YAMD.exe
+C:\Users\Rachel\Documents\Visual Studio 2010\Projects\YAMD\YAMD\obj\x86\Debug\YAMD.pdb
+C:\Users\Rachel\Documents\Visual Studio 2010\Projects\YAMD\YAMD\obj\x86\Debug\YAMD.csprojResolveAssemblyReference.cache
