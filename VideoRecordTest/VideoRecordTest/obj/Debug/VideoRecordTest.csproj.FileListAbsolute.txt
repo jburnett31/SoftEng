@@ -1,0 +1,1 @@
+c:\users\jeff\documents\visual studio 2012\Projects\VideoRecordTest\VideoRecordTest\bin\Debug\VideoRecordTest.exe.config

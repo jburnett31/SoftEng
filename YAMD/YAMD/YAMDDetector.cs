@@ -14,6 +14,9 @@ using System.Drawing.Imaging;
 
 namespace YAMD
 {
+
+    // yamdmotiondetection@gmail.com
+    // d0n0tsh@r3
     public class YAMDDetector
     {
         MotionDetector detector;
@@ -28,6 +31,10 @@ namespace YAMD
         Magnitude low, medium, high;
         public double Timeout
         { get; set; }
+
+        // event handler
+        public delegate void MotionEventHandler(object sender, MotionEventArgs a);
+        public event MotionEventHandler RaiseMotionEvent;
 
         public YAMDDetector(IVideoSource source, Magnitude low, Magnitude medium, Magnitude high)
         {
@@ -46,7 +53,7 @@ namespace YAMD
             buffer.Limit = 50;
         }
 
-        public ~YAMDDetector()
+        ~YAMDDetector()
         {
            
         }
@@ -90,6 +97,26 @@ namespace YAMD
             lock (this)
             {
                 float motionLevel = detector.ProcessFrame(image);
+                int level = (int)Math.Floor(motionLevel * 100);
+
+                if (level >= high.Sensitivity)
+                {
+
+                }
+                else if (level >= medium.Sensitivity)
+                {
+
+                }
+                else if (level >= low.Sensitivity)
+                {
+
+                }
+                else return;
+            }
+            /*
+            lock (this)
+            {
+                float motionLevel = detector.ProcessFrame(image);
 
                 if (motionLevel > motionAlarmLevel)
                 {
@@ -107,11 +134,12 @@ namespace YAMD
                 if (showMotionHistoryToolStripMenuItem.Checked)
                     DrawMotionHistory(image);
             }
+             */
         }
 
         private bool checkMagnitude(Magnitude m, int duration, int sensitivity)
         {
-            if (duration >= m.Duration() && sensitivity > m.Duration())
+            if (duration >= m.Duration && sensitivity > m.Duration)
             {
                 return true;
             }
