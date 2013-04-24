@@ -68,7 +68,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                MessageBox.Show("YAMD cannot detect an available webcam. Please make sure that your device is property plugged into your computer and try again");
+                MessageBox.Show("YAMD cannot detect an available webcam. Please make sure that your device is property plugged into your computer and try again.");
             }
         }
         
@@ -117,6 +117,13 @@ namespace WindowsFormsApplication1
         private void webcam_Frame_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void deadZoneButton_Click(object sender, EventArgs e)
+        {
+            DeadZoneForm deadZone_Settings = new DeadZoneForm();
+            deadZone_Settings.Show();
+            this.Hide();
         }
     }
 }

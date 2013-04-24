@@ -49,6 +49,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.button4 = new System.Windows.Forms.Button();
             this.webcam_Frame = new System.Windows.Forms.PictureBox();
+            this.deadZoneButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webcam_Frame)).BeginInit();
@@ -154,7 +155,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(16, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(988, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(998, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -230,9 +231,9 @@
             // 
             // webcam_Frame
             // 
-            this.webcam_Frame.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webcam_Frame.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.webcam_Frame.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("webcam_Frame.BackgroundImage")));
             this.webcam_Frame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.webcam_Frame.Location = new System.Drawing.Point(2, 0);
@@ -242,6 +243,16 @@
             this.webcam_Frame.TabStop = false;
             this.webcam_Frame.Click += new System.EventHandler(this.webcam_Frame_Click);
             // 
+            // deadZoneButton
+            // 
+            this.deadZoneButton.Location = new System.Drawing.Point(844, 135);
+            this.deadZoneButton.Name = "deadZoneButton";
+            this.deadZoneButton.Size = new System.Drawing.Size(120, 31);
+            this.deadZoneButton.TabIndex = 13;
+            this.deadZoneButton.Text = "Dead Zone Settings";
+            this.deadZoneButton.UseVisualStyleBackColor = true;
+            this.deadZoneButton.Click += new System.EventHandler(this.deadZoneButton_Click);
+            // 
             // main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,7 +260,8 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1004, 683);
+            this.ClientSize = new System.Drawing.Size(1014, 695);
+            this.Controls.Add(this.deadZoneButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -293,6 +305,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox webcam_Frame;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button deadZoneButton;
 
     }
 }
