@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,6 +55,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\AForge.NET\Framework\Release\AForge.Vision.dll</HintPath>
     </Reference>
+    <Reference Include="DirectShowLib-2005">
+      <HintPath>..\..\..\..\..\Downloads\splicer-source-1.0.0.0\Splicer\bin\Debug\DirectShowLib-2005.dll</HintPath>
+    </Reference>
+    <Reference Include="Splicer">
+      <HintPath>..\..\..\..\..\Downloads\splicer-source-1.0.0.0\Splicer\bin\Debug\Splicer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -64,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AviWriter.cs" />
     <Compile Include="MainForm-ex.cs" />
     <Compile Include="MainForm-ex.designer.cs">
       <DependentUpon>MainForm-ex.cs</DependentUpon>

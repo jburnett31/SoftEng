@@ -1,1 +1,23 @@
 c:\users\jeff\documents\visual studio 2012\Projects\VideoRecordTest\VideoRecordTest\bin\Debug\VideoRecordTest.exe.config
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\VideoRecordTest.exe.config
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\VideoRecordTest.exe
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\VideoRecordTest.pdb
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Video.dll
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Video.FFMPEG.dll
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Vision.dll
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.dll
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Imaging.dll
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Math.dll
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Video.xml
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Video.FFMPEG.xml
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Vision.xml
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.xml
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Imaging.xml
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\AForge.Math.xml
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\obj\Debug\VideoRecordTest.csprojResolveAssemblyReference.cache
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\obj\Debug\VideoRecordTest.exe
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\obj\Debug\VideoRecordTest.pdb
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\DirectShowLib-2005.dll
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\Splicer.dll
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\DirectShowLib-2005.pdb
+C:\Users\Jeff\Documents\GitHub\SoftEng\VideoRecordTest\VideoRecordTest\bin\Debug\Splicer.pdb

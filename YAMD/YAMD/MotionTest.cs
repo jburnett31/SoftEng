@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AForge.Vision.Motion;
-using AForge.Video.VFW;
 using AForge.Video;
 using AForge.Video.DirectShow;
 using System.Drawing.Imaging;
 using System.Drawing;
+using Splicer.Timeline;
+using Splicer.Renderer;
+using Splicer.Utilities;
+using Splicer.WindowsMedia;
 
 namespace YAMD
 {
@@ -16,7 +19,7 @@ namespace YAMD
     {
         MotionDetector detector;
         AsyncVideoSource source;
-        AVIWriter recorder;
+        AviWriter recorder;
 
         public MotionTest()
         {
@@ -24,27 +27,32 @@ namespace YAMD
                                                      new BlobCountingObjectsProcessing(true));
             source = new AsyncVideoSource(new FileVideoSource("091028_170442.AVI"));
 
-            recorder = new AVIWriter("wmv3");
+            
         }
 
         static void Main(string[] args)
         {
-            AVIWriter writer = new AVIWriter("wmv3");
-            try
+            string outputFile = "test-output.wmv";
+
+            using (ITimeline timeline = new DefaultTimeline(15))
             {
-                writer.Open("test-out.wmv", 320, 240);
+                IGroup videoGroup = timeline.AddVideoGroup(24, 320, 240);
+                ITrack videoTrack = videoGroup.AddTrack();
+
                 Bitmap bmp = new Bitmap(320, 240, PixelFormat.Format24bppRgb);
-                for (int i = 0; i < 100; i++)
+                for (int i=0; i<100; i++)
                 {
-                    bmp.SetPixel(i, i, Color.FromArgb(i, 0, 255 - i));
-                    writer.AddFrame(bmp);
+                    bmp.SetPixel(i,i,Color.FromArgb(i,0,255-i));
+                    videoTrack.AddImage(bmp);
                 }
                 bmp.Dispose();
+
+                IRenderer renderer = new WindowsMediaRenderer(timeline, outputFile, WindowsMediaProfiles.LowQualityVideo);
+                {
+                    renderer.Render();
+                }
+                
             }
-            catch (ApplicationException e)
-            {
-            }
-            writer.Dispose();
         }
     }
 }
