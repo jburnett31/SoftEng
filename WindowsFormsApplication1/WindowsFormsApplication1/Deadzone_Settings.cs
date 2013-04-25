@@ -85,7 +85,7 @@ namespace WindowsFormsApplication1
         //******************** Making Dead Zones ************************************************
         private void captureButton_Click(object sender, EventArgs e)
         {
-            // screen.Image = (Bitmap)cam.SnapshotFr
+            screen.Image = (Bitmap)cam.SnapshotFrame;
         }
 
         private void screen_MouseDown(object sender, EventArgs e)
@@ -123,6 +123,11 @@ namespace WindowsFormsApplication1
             {
                 cam.Start();
             }
+        }
+
+        private void captureButton_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 
