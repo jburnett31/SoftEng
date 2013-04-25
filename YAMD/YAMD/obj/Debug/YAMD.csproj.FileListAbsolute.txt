@@ -20,6 +20,6 @@ C:\Users\Jeff\Documents\GitHub\SoftEng\YAMD\YAMD\bin\Debug\AForge.Math.xml
 C:\Users\Jeff\Documents\GitHub\SoftEng\YAMD\YAMD\obj\Debug\YAMD.dll
 C:\Users\Jeff\Documents\GitHub\SoftEng\YAMD\YAMD\obj\Debug\YAMD.pdb
 C:\Users\Jeff\Documents\GitHub\SoftEng\YAMD\YAMD\bin\Debug\DirectShowLib-2005.dll
-C:\Users\Jeff\Documents\GitHub\SoftEng\YAMD\YAMD\bin\Debug\Splicer.dll
 C:\Users\Jeff\Documents\GitHub\SoftEng\YAMD\YAMD\bin\Debug\DirectShowLib-2005.pdb
-C:\Users\Jeff\Documents\GitHub\SoftEng\YAMD\YAMD\bin\Debug\Splicer.pdb
+C:\Users\Jeff\Documents\GitHub\SoftEng\YAMD\YAMD\bin\Debug\AForge.Video.FFMPEG.dll
+C:\Users\Jeff\Documents\GitHub\SoftEng\YAMD\YAMD\bin\Debug\AForge.Video.FFMPEG.xml

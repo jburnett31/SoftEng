@@ -88,7 +88,16 @@ namespace YAMD
             for (int i = 0; i < buffer.Size(); i++ )
             {
                 Bitmap img = buffer.Dequeue();
-                videoRecorder.AddFrame(img);
+                videoRecorder.WriteVideoFrame(img);
+            }
+        }
+
+        protected virtual void OnMotionEvent(MotionEventArgs e)
+        {
+            MotionEventHandler handler = RaiseMotionEvent;
+            if (handler != null)
+            {
+                handler(this, e);
             }
         }
 
@@ -96,22 +105,22 @@ namespace YAMD
         {
             lock (this)
             {
+                Magnitude m = null;
                 float motionLevel = detector.ProcessFrame(image);
                 int level = (int)Math.Floor(motionLevel * 100);
 
                 if (level >= high.Sensitivity)
-                {
-
-                }
+                    m = high;
                 else if (level >= medium.Sensitivity)
-                {
-
-                }
+                    m = medium;
                 else if (level >= low.Sensitivity)
-                {
+                    m = low;
 
+                if (m != null)
+                {
+                    String file = DateTime.Now.ToShortDateString() + DateTime.Now.ToString("HH mm") + ".avi";
+                    OnMotionEvent(new MotionEventArgs(m, file, ref image));
                 }
-                else return;
             }
             /*
             lock (this)
