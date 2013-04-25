@@ -204,6 +204,7 @@
             this.captureButton.TabIndex = 17;
             this.captureButton.Text = "Capture Image";
             this.captureButton.UseVisualStyleBackColor = false;
+            this.captureButton.Click += new System.EventHandler(this.captureButton_Click_1);
             // 
             // label1
             // 
