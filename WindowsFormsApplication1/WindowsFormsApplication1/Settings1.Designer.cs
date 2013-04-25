@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WindowsFormsApplication1 {
+namespace YAMD_SYSTEMS {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -26,12 +26,84 @@ namespace WindowsFormsApplication1 {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Setting {
+        public string EmailAccount {
             get {
-                return ((string)(this["Setting"]));
+                return ((string)(this["EmailAccount"]));
             }
             set {
-                this["Setting"] = value;
+                this["EmailAccount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int sensitivity_Low {
+            get {
+                return ((int)(this["sensitivity_Low"]));
+            }
+            set {
+                this["sensitivity_Low"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:00")]
+        public global::System.TimeSpan duration_Low {
+            get {
+                return ((global::System.TimeSpan)(this["duration_Low"]));
+            }
+            set {
+                this["duration_Low"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int sensitivity_Med {
+            get {
+                return ((int)(this["sensitivity_Med"]));
+            }
+            set {
+                this["sensitivity_Med"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:00")]
+        public global::System.TimeSpan duration_Med {
+            get {
+                return ((global::System.TimeSpan)(this["duration_Med"]));
+            }
+            set {
+                this["duration_Med"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int sensitivity_High {
+            get {
+                return ((int)(this["sensitivity_High"]));
+            }
+            set {
+                this["sensitivity_High"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:00")]
+        public global::System.TimeSpan duration_High {
+            get {
+                return ((global::System.TimeSpan)(this["duration_High"]));
+            }
+            set {
+                this["duration_High"] = value;
             }
         }
     }

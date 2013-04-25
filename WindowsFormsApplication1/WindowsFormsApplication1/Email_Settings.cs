@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//using UserSettingsDemo.Properties;
+
 namespace WindowsFormsApplication1
 {
     public partial class email_Settings_Form : Form
@@ -15,21 +17,6 @@ namespace WindowsFormsApplication1
         public email_Settings_Form()
         {
             InitializeComponent();
-        }
-
-        private void Form3_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -68,6 +55,18 @@ namespace WindowsFormsApplication1
             threshold_Settings_Form threshold_Settings = new threshold_Settings_Form();
             threshold_Settings.Show();
             this.Close();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Deadzone_Settings deadzone_Settings = new Deadzone_Settings();
+            deadzone_Settings.Show();
+            this.Hide();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //this.textBox1 = null;
         }
 
 

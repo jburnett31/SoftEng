@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApplication1
 {
-    partial class Form1
+    partial class Deadzone_Settings
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Deadzone_Settings));
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -44,6 +44,8 @@
             this.screen = new System.Windows.Forms.PictureBox();
             this.captureButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.tempLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.screen)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +55,7 @@
             this.button3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button3.BackgroundImage")));
             this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(714, 137);
+            this.button3.Location = new System.Drawing.Point(843, 137);
             this.button3.Margin = new System.Windows.Forms.Padding(0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(129, 42);
@@ -148,9 +150,9 @@
             // 
             this.addButton.BackColor = System.Drawing.SystemColors.ControlLight;
             this.addButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addButton.Location = new System.Drawing.Point(865, 212);
+            this.addButton.Location = new System.Drawing.Point(846, 340);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(118, 34);
+            this.addButton.Size = new System.Drawing.Size(155, 52);
             this.addButton.TabIndex = 16;
             this.addButton.Text = "Add a Deadzone";
             this.addButton.UseVisualStyleBackColor = false;
@@ -160,9 +162,9 @@
             // 
             this.resetButton.BackColor = System.Drawing.SystemColors.ControlLight;
             this.resetButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.resetButton.Location = new System.Drawing.Point(884, 332);
+            this.resetButton.Location = new System.Drawing.Point(846, 456);
             this.resetButton.Name = "resetButton";
-            this.resetButton.Size = new System.Drawing.Size(75, 34);
+            this.resetButton.Size = new System.Drawing.Size(155, 52);
             this.resetButton.TabIndex = 17;
             this.resetButton.Text = "Reset";
             this.resetButton.UseVisualStyleBackColor = false;
@@ -172,9 +174,9 @@
             // 
             this.removeButton.BackColor = System.Drawing.SystemColors.ControlLight;
             this.removeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.removeButton.Location = new System.Drawing.Point(846, 274);
+            this.removeButton.Location = new System.Drawing.Point(846, 398);
             this.removeButton.Name = "removeButton";
-            this.removeButton.Size = new System.Drawing.Size(155, 34);
+            this.removeButton.Size = new System.Drawing.Size(155, 52);
             this.removeButton.TabIndex = 18;
             this.removeButton.Text = "Remove a Deadzone";
             this.removeButton.UseVisualStyleBackColor = false;
@@ -187,6 +189,7 @@
             this.screen.Size = new System.Drawing.Size(780, 493);
             this.screen.TabIndex = 19;
             this.screen.TabStop = false;
+            this.screen.Click += new System.EventHandler(this.screen_MouseDown);
             // 
             // captureButton
             // 
@@ -195,13 +198,12 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.captureButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.captureButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.captureButton.Location = new System.Drawing.Point(860, 543);
+            this.captureButton.Location = new System.Drawing.Point(846, 253);
             this.captureButton.Name = "captureButton";
-            this.captureButton.Size = new System.Drawing.Size(123, 55);
+            this.captureButton.Size = new System.Drawing.Size(155, 81);
             this.captureButton.TabIndex = 17;
             this.captureButton.Text = "Capture Image";
             this.captureButton.UseVisualStyleBackColor = false;
-            this.captureButton.Click += new System.EventHandler(this.captureButton_Click);
             // 
             // label1
             // 
@@ -212,13 +214,35 @@
             this.label1.TabIndex = 21;
             this.label1.Text = "***Put hover instructions to get out of viewing area";
             // 
-            // Form1
+            // button7
+            // 
+            this.button7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button7.BackgroundImage")));
+            this.button7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Location = new System.Drawing.Point(714, 137);
+            this.button7.Margin = new System.Windows.Forms.Padding(0);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(129, 42);
+            this.button7.TabIndex = 22;
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // tempLabel
+            // 
+            this.tempLabel.Location = new System.Drawing.Point(849, 200);
+            this.tempLabel.Name = "tempLabel";
+            this.tempLabel.Size = new System.Drawing.Size(147, 50);
+            this.tempLabel.TabIndex = 23;
+            this.tempLabel.Text = "This text should change...";
+            // 
+            // Deadzone_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1008, 687);
+            this.Controls.Add(this.tempLabel);
+            this.Controls.Add(this.button7);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.captureButton);
             this.Controls.Add(this.screen);
@@ -229,9 +253,9 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Name = "Deadzone_Settings";
+            this.Text = "Deadzone Settings";
+            this.Load += new System.EventHandler(this.Deadzone_Settings_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.screen)).EndInit();
@@ -257,5 +281,7 @@
         private System.Windows.Forms.PictureBox screen;
         private System.Windows.Forms.Button captureButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Label tempLabel;
     }
 }

@@ -47,9 +47,15 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.webcam_Frame = new System.Windows.Forms.PictureBox();
-            this.deadZoneButton = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webcam_Frame)).BeginInit();
@@ -113,6 +119,7 @@
             // 
             this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Location = new System.Drawing.Point(454, 135);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
@@ -126,6 +133,7 @@
             // 
             this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Location = new System.Drawing.Point(583, 135);
             this.button2.Margin = new System.Windows.Forms.Padding(0);
@@ -139,8 +147,9 @@
             // 
             this.button3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button3.BackgroundImage")));
             this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(712, 135);
+            this.button3.Location = new System.Drawing.Point(841, 135);
             this.button3.Margin = new System.Windows.Forms.Padding(0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(129, 42);
@@ -155,7 +164,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(16, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(998, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(988, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -185,9 +194,9 @@
             this.addWebcamToolStripMenuItem.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.addWebcamToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.addWebcamToolStripMenuItem.Name = "addWebcamToolStripMenuItem";
-            this.addWebcamToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
-            this.addWebcamToolStripMenuItem.Text = "Add Webcam";
-            this.addWebcamToolStripMenuItem.Click += new System.EventHandler(this.addWebcamToolStripMenuItem_Click);
+            this.addWebcamToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.addWebcamToolStripMenuItem.Text = "Connect";
+            this.addWebcamToolStripMenuItem.Click += new System.EventHandler(this.button4_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -205,11 +214,11 @@
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.quitToolStripMenuItem.Text = "Quit";
-            this.quitToolStripMenuItem.Visible = false;
-            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click_1);
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.menuQuit_Click);
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.webcam_Frame);
             this.panel1.Location = new System.Drawing.Point(189, 177);
@@ -217,41 +226,107 @@
             this.panel1.Size = new System.Drawing.Size(644, 491);
             this.panel1.TabIndex = 12;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.PaleTurquoise;
+            this.label5.Location = new System.Drawing.Point(78, 119);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(479, 60);
+            this.label5.TabIndex = 15;
+            this.label5.Text = "To begin monitoring, make sure that you have adjusted the system \r\nsettings to re" +
+    "flect your preferences, and click the button below. \r\nPlease note that the syste" +
+    "m will begin monitoring immediately.\r\n";
+            // 
             // button4
             // 
-            this.button4.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.button4.BackColor = System.Drawing.Color.Gray;
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(280, 234);
+            this.button4.Location = new System.Drawing.Point(253, 234);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(125, 43);
             this.button4.TabIndex = 14;
             this.button4.Text = "Connect";
             this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.addWebcamToolStripMenuItem_Click);
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // webcam_Frame
             // 
-            this.webcam_Frame.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.webcam_Frame.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("webcam_Frame.BackgroundImage")));
+            this.webcam_Frame.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.webcam_Frame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.webcam_Frame.Location = new System.Drawing.Point(2, 0);
             this.webcam_Frame.Name = "webcam_Frame";
             this.webcam_Frame.Size = new System.Drawing.Size(641, 491);
             this.webcam_Frame.TabIndex = 13;
             this.webcam_Frame.TabStop = false;
-            this.webcam_Frame.Click += new System.EventHandler(this.webcam_Frame_Click);
             // 
-            // deadZoneButton
+            // button5
             // 
-            this.deadZoneButton.Location = new System.Drawing.Point(844, 135);
-            this.deadZoneButton.Name = "deadZoneButton";
-            this.deadZoneButton.Size = new System.Drawing.Size(120, 31);
-            this.deadZoneButton.TabIndex = 13;
-            this.deadZoneButton.Text = "Dead Zone Settings";
-            this.deadZoneButton.UseVisualStyleBackColor = true;
-            this.deadZoneButton.Click += new System.EventHandler(this.deadZoneButton_Click);
+            this.button5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button5.BackgroundImage")));
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Location = new System.Drawing.Point(712, 135);
+            this.button5.Margin = new System.Windows.Forms.Padding(0);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(129, 42);
+            this.button5.TabIndex = 13;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(50, 245);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(87, 20);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Protected";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.Menu;
+            this.label2.Location = new System.Drawing.Point(49, 214);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(107, 18);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Current Status:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.LightGray;
+            this.label3.Location = new System.Drawing.Point(50, 245);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 20);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Not Protected";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.ForeColor = System.Drawing.Color.Silver;
+            this.label4.Location = new System.Drawing.Point(68, 265);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(108, 91);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "            \r\n*WARNING:\r\nThe viewing area \r\nis currently not\r\nbeing monitored \r\na" +
+    "nd is vunerable \r\nto anomolous events.";
             // 
             // main_Form
             // 
@@ -260,8 +335,12 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1014, 695);
-            this.Controls.Add(this.deadZoneButton);
+            this.ClientSize = new System.Drawing.Size(1004, 683);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.button5);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
@@ -274,10 +353,12 @@
             this.Name = "main_Form";
             this.Padding = new System.Windows.Forms.Padding(16, 0, 0, 0);
             this.Text = "   YAMD Systems";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.main_Form_FormClosed);
             this.Load += new System.EventHandler(this.main_Form_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.webcam_Frame)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -305,7 +386,13 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox webcam_Frame;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button deadZoneButton;
+        private System.Windows.Forms.Button button5;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
 
     }
 }

@@ -7,8 +7,8 @@
     <ProjectGuid>{7F950A92-BE84-4E1C-A2F6-850789FFEA2F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WindowsFormsApplication1</RootNamespace>
-    <AssemblyName>WindowsFormsApplication1</AssemblyName>
+    <RootNamespace>YAMD_SYSTEMS</RootNamespace>
+    <AssemblyName>YAMD_SYSTEMS</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -42,7 +42,6 @@
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\AForge.NET\Framework\Release\AForge.Video.DirectShow.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
@@ -57,17 +56,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DeadZoneForm.cs">
+    <Compile Include="Deadzone_Settings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeadZoneForm.Designer.cs">
-      <DependentUpon>DeadZoneForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Deadzone_Settings.Designer.cs">
+      <DependentUpon>Deadzone_Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -100,11 +93,14 @@
     <Compile Include="Threshold_Settings.Designer.cs">
       <DependentUpon>Threshold_Settings.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DeadZoneForm.resx">
-      <DependentUpon>DeadZoneForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Webcam_recording.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Webcam_recording.Designer.cs">
+      <DependentUpon>Webcam_recording.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Deadzone_Settings.resx">
+      <DependentUpon>Deadzone_Settings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
@@ -128,6 +124,19 @@
     <EmbeddedResource Include="Threshold_Settings.resx">
       <DependentUpon>Threshold_Settings.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Webcam_recording.resx">
+      <DependentUpon>Webcam_recording.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\Settings1.datasource" />
+    <None Include="Properties\DataSources\WindowsFormsApplication1.Deadzone_Settings.datasource" />
+    <None Include="Properties\DataSources\WindowsFormsApplication1.email_Settings_Form.datasource" />
+    <None Include="Properties\DataSources\WindowsFormsApplication1.main_Form.datasource" />
+    <None Include="Properties\DataSources\WindowsFormsApplication1.Program.datasource" />
+    <None Include="Properties\DataSources\WindowsFormsApplication1.Repository_Settings.datasource" />
+    <None Include="Properties\DataSources\WindowsFormsApplication1.threshold_Settings_Form.datasource" />
+    <None Include="Properties\DataSources\WindowsFormsApplication1.Webcam_recording.datasource" />
+    <None Include="Properties\DataSources\YAMD_SYSTEMS.Properties.Resources.datasource" />
+    <None Include="Properties\DataSources\YAMD_SYSTEMS.Properties.Settings.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

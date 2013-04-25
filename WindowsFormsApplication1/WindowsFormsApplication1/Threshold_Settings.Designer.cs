@@ -32,12 +32,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(threshold_Settings_Form));
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.low_Threshold_Tab = new System.Windows.Forms.TabPage();
-            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.sensitivityBar_Low = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.med_Threshold_Tab = new System.Windows.Forms.TabPage();
             this.high_Threshold_Tab = new System.Windows.Forms.TabPage();
@@ -45,11 +47,13 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.durationBar_Low = new System.Windows.Forms.TrackBar();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.low_Threshold_Tab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sensitivityBar_Low)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.durationBar_Low)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -65,6 +69,8 @@
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.button4);
+            this.panel1.Controls.Add(this.button5);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
@@ -76,12 +82,36 @@
             this.panel1.Size = new System.Drawing.Size(1024, 691);
             this.panel1.TabIndex = 1;
             // 
+            // button4
+            // 
+            this.button4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button4.BackgroundImage")));
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Location = new System.Drawing.Point(463, 647);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(100, 30);
+            this.button4.TabIndex = 15;
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button5.BackgroundImage")));
+            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Location = new System.Drawing.Point(721, 135);
+            this.button5.Margin = new System.Windows.Forms.Padding(0);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(129, 42);
+            this.button5.TabIndex = 14;
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // button3
             // 
             this.button3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button3.BackgroundImage")));
             this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(721, 129);
+            this.button3.Location = new System.Drawing.Point(850, 135);
             this.button3.Margin = new System.Windows.Forms.Padding(0);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(129, 43);
@@ -94,7 +124,7 @@
             this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(592, 129);
+            this.button2.Location = new System.Drawing.Point(592, 135);
             this.button2.Margin = new System.Windows.Forms.Padding(0);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(129, 43);
@@ -107,7 +137,7 @@
             this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(463, 129);
+            this.button1.Location = new System.Drawing.Point(463, 135);
             this.button1.Margin = new System.Windows.Forms.Padding(0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(129, 43);
@@ -120,6 +150,7 @@
             this.tabControl1.Controls.Add(this.low_Threshold_Tab);
             this.tabControl1.Controls.Add(this.med_Threshold_Tab);
             this.tabControl1.Controls.Add(this.high_Threshold_Tab);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tabControl1.Location = new System.Drawing.Point(57, 181);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -134,43 +165,46 @@
             this.low_Threshold_Tab.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("low_Threshold_Tab.BackgroundImage")));
             this.low_Threshold_Tab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.low_Threshold_Tab.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.low_Threshold_Tab.Controls.Add(this.trackBar1);
+            this.low_Threshold_Tab.Controls.Add(this.durationBar_Low);
+            this.low_Threshold_Tab.Controls.Add(this.sensitivityBar_Low);
             this.low_Threshold_Tab.Controls.Add(this.label1);
-            this.low_Threshold_Tab.Location = new System.Drawing.Point(4, 22);
+            this.low_Threshold_Tab.Location = new System.Drawing.Point(4, 27);
             this.low_Threshold_Tab.Margin = new System.Windows.Forms.Padding(0);
             this.low_Threshold_Tab.Name = "low_Threshold_Tab";
-            this.low_Threshold_Tab.Size = new System.Drawing.Size(885, 421);
+            this.low_Threshold_Tab.Size = new System.Drawing.Size(885, 416);
             this.low_Threshold_Tab.TabIndex = 0;
             this.low_Threshold_Tab.Text = "Low Threshold";
             // 
-            // trackBar1
+            // sensitivityBar_Low
             // 
-            this.trackBar1.BackColor = System.Drawing.Color.White;
-            this.trackBar1.Location = new System.Drawing.Point(515, 133);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(217, 45);
-            this.trackBar1.TabIndex = 1;
-            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.sensitivityBar_Low.BackColor = System.Drawing.Color.Gainsboro;
+            this.sensitivityBar_Low.Cursor = System.Windows.Forms.Cursors.SizeWE;
+            this.sensitivityBar_Low.Location = new System.Drawing.Point(442, 112);
+            this.sensitivityBar_Low.Name = "sensitivityBar_Low";
+            this.sensitivityBar_Low.Size = new System.Drawing.Size(217, 45);
+            this.sensitivityBar_Low.TabIndex = 1;
+            this.sensitivityBar_Low.TickFrequency = 2;
+            this.sensitivityBar_Low.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(199, 34);
+            this.label1.Location = new System.Drawing.Point(122, 43);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(285, 13);
+            this.label1.Size = new System.Drawing.Size(278, 18);
             this.label1.TabIndex = 0;
-            this.label1.Text = "// Need to specify how threshold values will be evaluated. ";
+            this.label1.Text = "Please specify your low threshold values.";
             // 
             // med_Threshold_Tab
             // 
             this.med_Threshold_Tab.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("med_Threshold_Tab.BackgroundImage")));
             this.med_Threshold_Tab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.med_Threshold_Tab.Location = new System.Drawing.Point(4, 22);
+            this.med_Threshold_Tab.Location = new System.Drawing.Point(4, 27);
             this.med_Threshold_Tab.Margin = new System.Windows.Forms.Padding(0);
             this.med_Threshold_Tab.Name = "med_Threshold_Tab";
             this.med_Threshold_Tab.Padding = new System.Windows.Forms.Padding(3);
-            this.med_Threshold_Tab.Size = new System.Drawing.Size(885, 421);
+            this.med_Threshold_Tab.Size = new System.Drawing.Size(885, 416);
             this.med_Threshold_Tab.TabIndex = 1;
             this.med_Threshold_Tab.Text = "Medium Threshold";
             this.med_Threshold_Tab.UseVisualStyleBackColor = true;
@@ -179,10 +213,10 @@
             // 
             this.high_Threshold_Tab.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("high_Threshold_Tab.BackgroundImage")));
             this.high_Threshold_Tab.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.high_Threshold_Tab.Location = new System.Drawing.Point(4, 22);
+            this.high_Threshold_Tab.Location = new System.Drawing.Point(4, 27);
             this.high_Threshold_Tab.Name = "high_Threshold_Tab";
             this.high_Threshold_Tab.Padding = new System.Windows.Forms.Padding(3);
-            this.high_Threshold_Tab.Size = new System.Drawing.Size(885, 421);
+            this.high_Threshold_Tab.Size = new System.Drawing.Size(885, 416);
             this.high_Threshold_Tab.TabIndex = 2;
             this.high_Threshold_Tab.Text = "High Threshold";
             this.high_Threshold_Tab.UseVisualStyleBackColor = true;
@@ -227,6 +261,15 @@
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
+            // durationBar_Low
+            // 
+            this.durationBar_Low.BackColor = System.Drawing.Color.Gainsboro;
+            this.durationBar_Low.Cursor = System.Windows.Forms.Cursors.SizeWE;
+            this.durationBar_Low.Location = new System.Drawing.Point(442, 300);
+            this.durationBar_Low.Name = "durationBar_Low";
+            this.durationBar_Low.Size = new System.Drawing.Size(217, 45);
+            this.durationBar_Low.TabIndex = 2;
+            // 
             // threshold_Settings_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,9 +295,10 @@
             this.tabControl1.ResumeLayout(false);
             this.low_Threshold_Tab.ResumeLayout(false);
             this.low_Threshold_Tab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sensitivityBar_Low)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.durationBar_Low)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -272,10 +316,13 @@
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.TrackBar sensitivityBar_Low;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TrackBar durationBar_Low;
     }
 }
 

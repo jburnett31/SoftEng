@@ -90,5 +90,12 @@ namespace WindowsFormsApplication1
             this.Close();
         }
 
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Deadzone_Settings deadzone_Settings = new Deadzone_Settings();
+            deadzone_Settings.Show();
+            this.Hide();
+        }
+
     }
 }
