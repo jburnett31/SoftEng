@@ -7,6 +7,7 @@ using System.Threading;
 using AForge.Vision.Motion;
 using AForge.Video;
 using AForge.Video.VFW;
+using AForge.Video.FFMPEG;
 using System.Diagnostics;
 using System.Drawing;
 using AForge.Video.DirectShow;
@@ -23,7 +24,7 @@ namespace YAMD
         AsyncVideoSource inputStream;
         Stopwatch timer;
         const float stopCondition = 5.0f;
-        AVIWriter videoRecorder;
+        VideoFileWriter videoRecorder;
         FixedSizeQueue<Bitmap> buffer;
         public bool Running
         { get; set;}
@@ -46,7 +47,7 @@ namespace YAMD
             this.medium = medium;
             this.high = high;
             timer = new Stopwatch();
-            //videoRecorder = new AVIWriter("wmv3");
+            videoRecorder = new VideoFileWriter();
             Running = false;
             buffer = new FixedSizeQueue<Bitmap>();
             buffer.Limit = 50;
