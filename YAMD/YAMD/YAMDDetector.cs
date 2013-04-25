@@ -24,7 +24,6 @@ namespace YAMD
         Stopwatch timer;
         const float stopCondition = 5.0f;
         AVIWriter videoRecorder;
-        Thread detectorThread;
         FixedSizeQueue<Bitmap> buffer;
         public bool Running
         { get; set;}
@@ -47,7 +46,7 @@ namespace YAMD
             this.medium = medium;
             this.high = high;
             timer = new Stopwatch();
-            videoRecorder = new AVIWriter("wmv3");
+            //videoRecorder = new AVIWriter("wmv3");
             Running = false;
             buffer = new FixedSizeQueue<Bitmap>();
             buffer.Limit = 50;
