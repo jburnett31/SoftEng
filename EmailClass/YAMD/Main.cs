@@ -10,7 +10,8 @@ namespace Project1
         static void Main(string[] args)
         {
             SendMailViaGmail.Emailer mailMan = new SendMailViaGmail.Emailer();
-            mailMan.sendNotification(DateTime.Today, DateTime.Now, "C:\\Users\\Rachel\\Desktop\\Pictures\\bubbles\\comic.jpg", "www.google.com", "Magnitude");
+            //mailMan.sendNotification(DateTime.Today, DateTime.Now, "C:\\Users\\Rachel\\Desktop\\Pictures\\bubbles\\comic.jpg", "www.google.com", "Magnitude");
+            mailMan.sendToDropbox("C:\\Users\\Rachel\\Desktop\\Movies\\ButterflyMovie.wlmp");
         }
     }
 }
