@@ -83,6 +83,7 @@ namespace WindowsFormsApplication1
 
 
         //******************** Making Dead Zones ************************************************
+
         private void captureButton_Click(object sender, EventArgs e)
         {
             // screen.Image = (Bitmap)cam.SnapshotFrame;
