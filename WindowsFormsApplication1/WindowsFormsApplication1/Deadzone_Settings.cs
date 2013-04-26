@@ -166,7 +166,7 @@ namespace WindowsFormsApplication1
             if (staticImageCaptured)
             {
                 addToggled = true;
-                tempLabel.Text = "addToggled " + addToggled.ToString();
+                tempLabel.Text = "add toggled";
                 removeToggled = false;
             }
         }
@@ -177,6 +177,7 @@ namespace WindowsFormsApplication1
             {
                 addToggled = false;
                 removeToggled = true;
+                tempLabel.Text = "remove toggled";
             }
         }
 
@@ -202,6 +203,15 @@ namespace WindowsFormsApplication1
             {
                 cam.SignalToStop();
                 cam.Stop();
+            }
+        }
+
+        private void zoneMaskPanel_Click(object sender, EventArgs e)
+        {
+            if (removeToggled)
+            {
+                zoneMaskPanel.Visible = false;
+                areasToMonitor = null;
             }
         }
     }

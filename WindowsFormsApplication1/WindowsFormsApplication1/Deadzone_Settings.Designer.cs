@@ -234,6 +234,7 @@
             this.zoneMaskPanel.Size = new System.Drawing.Size(86, 70);
             this.zoneMaskPanel.TabIndex = 24;
             this.zoneMaskPanel.Visible = false;
+            this.zoneMaskPanel.Click += new System.EventHandler(this.zoneMaskPanel_Click);
             // 
             // Deadzone_Settings
             // 
