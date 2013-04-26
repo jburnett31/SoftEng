@@ -23,14 +23,20 @@ namespace YAMD
         MotionDetector detector;
         AsyncVideoSource inputStream;
         Stopwatch timer;
+        Stopwatch stoptimer;
         const float stopCondition = 5.0f;
         VideoFileWriter videoRecorder;
         FixedSizeQueue<Bitmap> buffer;
         public bool Running
         { get; set;}
+        public bool Recording
+        { get; set; }
         Magnitude low, medium, high;
         public double Timeout
         { get; set; }
+        private Bitmap screenshot;
+        private String filename;
+        Queue<int> magnitudes;
 
         // event handler
         public delegate void MotionEventHandler(object sender, MotionEventArgs a);
@@ -43,14 +49,17 @@ namespace YAMD
                 new BlobCountingObjectsProcessing(true));
             //async video source processes images in a separate thread and uses the NewFrame event
             inputStream = new AsyncVideoSource(source);
+            inputStream.NewFrame += inputStream_NewFrame;
             this.low = low;
             this.medium = medium;
             this.high = high;
             timer = new Stopwatch();
+            stoptimer = new Stopwatch();
             videoRecorder = new VideoFileWriter();
             Running = false;
             buffer = new FixedSizeQueue<Bitmap>();
             buffer.Limit = 50;
+            magnitudes = new Queue<int>();
         }
 
         ~YAMDDetector()
@@ -60,27 +69,27 @@ namespace YAMD
 
         public void Start()
         {
-            //Running = true;
-            //inputStream.Start();
-            //detectorThread = new Thread(new ThreadStart(mainLoop));
+            Running = true;
+            inputStream.Start();
         }
 
         public void Stop()
         {
-            //videoRecorder.Close();
-            //Running = false;
-            //inputStream.Stop();
-            //detectorThread.Join();
+            videoRecorder.Close();
+            Running = false;
+            inputStream.Stop();
         }
 
-        public String RecordVideo()
+        public void StartRecording(String name)
         {
-            String videoName = "";
+            String videoName = name;
             consBuffer();
-            //Bitmap image;
-            //videoRecorder.AddFrame(image)
-            
-            return videoName;
+            Recording = true;
+        }
+
+        public void StopRecording()
+        {
+            Recording = false;
         }
 
         private void consBuffer()
@@ -92,7 +101,7 @@ namespace YAMD
             }
         }
 
-        protected virtual void OnMotionEvent(MotionEventArgs e)
+        protected void OnMotionEvent(MotionEventArgs e)
         {
             MotionEventHandler handler = RaiseMotionEvent;
             if (handler != null)
@@ -101,25 +110,56 @@ namespace YAMD
             }
         }
 
-        private void videoSourcePlayer_NewFrame(object sender, ref Bitmap image)
+        private void inputStream_NewFrame(object sender, NewFrameEventArgs e)
         {
             lock (this)
             {
+                Bitmap image = e.Frame;
                 Magnitude m = null;
                 float motionLevel = detector.ProcessFrame(image);
                 int level = (int)Math.Floor(motionLevel * 100);
 
                 if (level >= high.Sensitivity)
-                    m = high;
-                else if (level >= medium.Sensitivity)
-                    m = medium;
-                else if (level >= low.Sensitivity)
-                    m = low;
-
-                if (m != null)
                 {
-                    String file = DateTime.Now.ToShortDateString() + DateTime.Now.ToString("HH mm") + ".avi";
-                    OnMotionEvent(new MotionEventArgs(m, file, ref image));
+                    m = high;
+                    magnitudes.Enqueue(3);
+                }
+                else if (level >= medium.Sensitivity)
+                {
+                    m = medium;
+                    magnitudes.Enqueue(2);
+                }
+                else if (level >= low.Sensitivity)
+                {
+                    m = low;
+                    magnitudes.Enqueue(1);
+                }
+                else
+                    magnitudes.Enqueue(0);
+
+                if (Recording)
+                {
+                    videoRecorder.WriteVideoFrame(image);
+                }
+                if (m != null && !Recording)
+                {
+                    screenshot = image;
+                    stoptimer.Reset();
+                    timer.Start();
+                    filename = DateTime.Now.ToShortDateString() + DateTime.Now.ToString("HH mm") + ".avi";
+                    StartRecording(filename);
+                }
+                else
+                {
+                    buffer.Enqueue(image);
+                    if (Recording && stoptimer.IsRunning)
+                        if (stoptimer.ElapsedMilliseconds > Timeout)
+                        {
+                            StopRecording();
+                            OnMotionEvent(new MotionEventArgs(m, filename, ref screenshot));
+                        }
+                    else
+                        stoptimer.Start();
                 }
             }
             /*
@@ -146,13 +186,10 @@ namespace YAMD
              */
         }
 
-        private bool checkMagnitude(Magnitude m, int duration, int sensitivity)
+        private int checkMagnitude(Queue<int> mags, int duration)
         {
-            if (duration >= m.Duration && sensitivity > m.Duration)
-            {
-                return true;
-            }
-            return false;
+    
+            return 0;
         }
     }
 }
