@@ -81,7 +81,7 @@
       <DependentUpon>Email_Settings.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\DataSources\AssemblyInfo.cs" />
     <Compile Include="Settings1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -92,12 +92,6 @@
     </Compile>
     <Compile Include="Threshold_Settings.Designer.cs">
       <DependentUpon>Threshold_Settings.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Webcam_recording.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Webcam_recording.Designer.cs">
-      <DependentUpon>Webcam_recording.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Deadzone_Settings.resx">
       <DependentUpon>Deadzone_Settings.cs</DependentUpon>
@@ -123,9 +117,6 @@
     </Compile>
     <EmbeddedResource Include="Threshold_Settings.resx">
       <DependentUpon>Threshold_Settings.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Webcam_recording.resx">
-      <DependentUpon>Webcam_recording.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\DataSources\Settings1.datasource" />
     <None Include="Properties\DataSources\WindowsFormsApplication1.Deadzone_Settings.datasource" />

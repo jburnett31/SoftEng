@@ -43,9 +43,9 @@
             this.removeButton = new System.Windows.Forms.Button();
             this.screen = new System.Windows.Forms.PictureBox();
             this.captureButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.tempLabel = new System.Windows.Forms.Label();
+            this.zoneMaskPanel = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.screen)).BeginInit();
             this.SuspendLayout();
@@ -184,12 +184,12 @@
             // 
             // screen
             // 
-            this.screen.Location = new System.Drawing.Point(63, 182);
+            this.screen.Location = new System.Drawing.Point(160, 200);
             this.screen.Name = "screen";
-            this.screen.Size = new System.Drawing.Size(780, 493);
+            this.screen.Size = new System.Drawing.Size(641, 475);
             this.screen.TabIndex = 19;
             this.screen.TabStop = false;
-            this.screen.Click += new System.EventHandler(this.screen_MouseDown);
+            this.screen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.screen_MouseDown);
             // 
             // captureButton
             // 
@@ -204,16 +204,7 @@
             this.captureButton.TabIndex = 17;
             this.captureButton.Text = "Capture Image";
             this.captureButton.UseVisualStyleBackColor = false;
-            this.captureButton.Click += new System.EventHandler(this.captureButton_Click_1);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(563, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(244, 13);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "***Put hover instructions to get out of viewing area";
+            this.captureButton.Click += new System.EventHandler(this.captureButton_Click);
             // 
             // button7
             // 
@@ -235,6 +226,16 @@
             this.tempLabel.TabIndex = 23;
             this.tempLabel.Text = "This text should change...";
             // 
+            // zoneMaskPanel
+            // 
+            this.zoneMaskPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.zoneMaskPanel.Location = new System.Drawing.Point(160, 200);
+            this.zoneMaskPanel.Name = "zoneMaskPanel";
+            this.zoneMaskPanel.Size = new System.Drawing.Size(86, 70);
+            this.zoneMaskPanel.TabIndex = 24;
+            this.zoneMaskPanel.Visible = false;
+            this.zoneMaskPanel.Click += new System.EventHandler(this.zoneMaskPanel_Click);
+            // 
             // Deadzone_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,9 +243,9 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1008, 687);
+            this.Controls.Add(this.zoneMaskPanel);
             this.Controls.Add(this.tempLabel);
             this.Controls.Add(this.button7);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.captureButton);
             this.Controls.Add(this.screen);
             this.Controls.Add(this.removeButton);
@@ -256,6 +257,7 @@
             this.Controls.Add(this.button1);
             this.Name = "Deadzone_Settings";
             this.Text = "Deadzone Settings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.quit_Form);
             this.Load += new System.EventHandler(this.Deadzone_Settings_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -281,8 +283,8 @@
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.PictureBox screen;
         private System.Windows.Forms.Button captureButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label tempLabel;
+        private System.Windows.Forms.Panel zoneMaskPanel;
     }
 }

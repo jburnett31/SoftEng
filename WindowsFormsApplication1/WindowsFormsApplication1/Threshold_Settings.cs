@@ -97,5 +97,12 @@ namespace WindowsFormsApplication1
             this.Hide();
         }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            main_Form main = new main_Form();
+            main.Show();
+            Close();
+        }
+
     }
 }

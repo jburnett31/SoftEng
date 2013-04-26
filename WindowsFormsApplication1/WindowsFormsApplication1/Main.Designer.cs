@@ -265,7 +265,7 @@
             this.webcam_Frame.Size = new System.Drawing.Size(641, 491);
             this.webcam_Frame.TabIndex = 13;
             this.webcam_Frame.TabStop = false;
-            // 
+           // 
             // button5
             // 
             this.button5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button5.BackgroundImage")));
