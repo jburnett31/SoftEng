@@ -18,6 +18,7 @@ namespace WindowsFormsApplication1
         public VideoCaptureDevice cam = null;
         public FilterInfoCollection usbCam;
         public int i;
+        public static Bitmap stillFrameImage;
 
         public bool addToggled = false;
         public bool removeToggled = false;

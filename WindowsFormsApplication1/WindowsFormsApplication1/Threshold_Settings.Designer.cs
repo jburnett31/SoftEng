@@ -39,6 +39,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.low_Threshold_Tab = new System.Windows.Forms.TabPage();
+            this.durationBar_Low = new System.Windows.Forms.TrackBar();
             this.sensitivityBar_Low = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.med_Threshold_Tab = new System.Windows.Forms.TabPage();
@@ -47,13 +48,12 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.durationBar_Low = new System.Windows.Forms.TrackBar();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.low_Threshold_Tab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.durationBar_Low)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sensitivityBar_Low)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.durationBar_Low)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStrip1
@@ -92,6 +92,7 @@
             this.button4.Size = new System.Drawing.Size(100, 30);
             this.button4.TabIndex = 15;
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -174,6 +175,15 @@
             this.low_Threshold_Tab.Size = new System.Drawing.Size(885, 416);
             this.low_Threshold_Tab.TabIndex = 0;
             this.low_Threshold_Tab.Text = "Low Threshold";
+            // 
+            // durationBar_Low
+            // 
+            this.durationBar_Low.BackColor = System.Drawing.Color.Gainsboro;
+            this.durationBar_Low.Cursor = System.Windows.Forms.Cursors.SizeWE;
+            this.durationBar_Low.Location = new System.Drawing.Point(442, 300);
+            this.durationBar_Low.Name = "durationBar_Low";
+            this.durationBar_Low.Size = new System.Drawing.Size(217, 45);
+            this.durationBar_Low.TabIndex = 2;
             // 
             // sensitivityBar_Low
             // 
@@ -261,15 +271,6 @@
             this.quitToolStripMenuItem.Text = "Quit";
             this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
-            // durationBar_Low
-            // 
-            this.durationBar_Low.BackColor = System.Drawing.Color.Gainsboro;
-            this.durationBar_Low.Cursor = System.Windows.Forms.Cursors.SizeWE;
-            this.durationBar_Low.Location = new System.Drawing.Point(442, 300);
-            this.durationBar_Low.Name = "durationBar_Low";
-            this.durationBar_Low.Size = new System.Drawing.Size(217, 45);
-            this.durationBar_Low.TabIndex = 2;
-            // 
             // threshold_Settings_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -295,10 +296,10 @@
             this.tabControl1.ResumeLayout(false);
             this.low_Threshold_Tab.ResumeLayout(false);
             this.low_Threshold_Tab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.durationBar_Low)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sensitivityBar_Low)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.durationBar_Low)).EndInit();
             this.ResumeLayout(false);
 
         }
