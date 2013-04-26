@@ -27,25 +27,28 @@ namespace WindowsFormsApplication1
         private void button4_Click(object sender, System.EventArgs e)
         {
             FilterInfoCollection devices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-
-            if (devices != null)
+            int i = new int();
+            for (i = 0; i < devices.Count; i++)
             {
-                cam = new VideoCaptureDevice(devices[1].MonikerString);
-
-                cam.NewFrame += new AForge.Video.NewFrameEventHandler(cam_NewFrame);
-
-                button4.Hide();
-                label3.Hide();
-                label4.Hide();
-                label1.Show();
-                label5.Hide();
-
-                cam.Start();
+                try
+                {
+                    cam = new VideoCaptureDevice(devices[i].MonikerString);
+                    break;
+                }
+                catch
+                {
+                }
             }
-            else
-            {
-                MessageBox.Show("YAMD does not detect any webcam devices on your system. Please make sure your device is property connected and try again.");
-            }
+
+             cam.NewFrame += new AForge.Video.NewFrameEventHandler(cam_NewFrame);
+
+             button4.Hide();
+             label3.Hide();
+             label4.Hide();
+             label1.Show();
+             label5.Hide();
+
+             cam.Start();
         }
 
         void cam_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
