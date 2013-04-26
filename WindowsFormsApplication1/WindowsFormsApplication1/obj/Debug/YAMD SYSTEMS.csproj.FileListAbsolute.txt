@@ -33,7 +33,6 @@ C:\Users\Rachel\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsAp
 C:\Users\Rachel\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.email_Settings_Form.resources
 C:\Users\Rachel\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\YAMD_SYSTEMS.Properties.Resources.resources
 C:\Users\Rachel\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.threshold_Settings_Form.resources
-C:\Users\Rachel\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Webcam_recording.resources
 C:\Users\Rachel\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\YAMD SYSTEMS.csproj.GenerateResource.Cache
 C:\Users\Burkle\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\bin\Debug\YAMD_SYSTEMS.exe.config
 C:\Users\Burkle\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\Debug\YAMD_SYSTEMS.exe

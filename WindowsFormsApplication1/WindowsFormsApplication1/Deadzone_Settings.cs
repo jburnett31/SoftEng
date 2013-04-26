@@ -17,12 +17,14 @@ namespace WindowsFormsApplication1
     {
         public VideoCaptureDevice cam = null;
         public FilterInfoCollection usbCam;
-        public int i;
         public static Bitmap stillFrameImage;
 
         public bool addToggled = false;
         public bool removeToggled = false;
         public bool staticImageCaptured = false;
+
+        public Rectangle deadzone;
+        public Rectangle[] areasToMonitor;
 
         public Deadzone_Settings()
         {
@@ -62,21 +64,20 @@ namespace WindowsFormsApplication1
         {
             usbCam = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
-            for (i = 0; i < usbCam.Count; i++)
+            for (int i = 0; i < usbCam.Count; i++)
             {
                 try
                 {
                     cam = new VideoCaptureDevice(usbCam[i].MonikerString);
+                    cam.NewFrame += new NewFrameEventHandler(cam_NewFrame);
+                    cam.Start();
                     break;
                 }
                 catch
                 {
+                    return;
                 }
             }
-            cam.NewFrame += new NewFrameEventHandler(cam_NewFrame);
-
-            cam.Start();
-
         }
 
         //  MessageBox.Show("YAMD cannot detect an available webcam. Please make sure that your device is property plugged into your computer and try again");
@@ -87,12 +88,77 @@ namespace WindowsFormsApplication1
         private void captureButton_Click(object sender, EventArgs e)
         {
             // screen.Image = (Bitmap)cam.SnapshotFrame;
+            staticImageCaptured = true;
+            tempLabel.Text = "staticImageCaptured = " + staticImageCaptured.ToString();
         }
 
         private void screen_MouseDown(object sender, EventArgs e)
         {
-            Rectangle rectangle = RectangleDrawer.Draw(this);
-            tempLabel.Text = rectangle.X.ToString() + " " + rectangle.Y.ToString() + " " + rectangle.Width.ToString() + " " + rectangle.Height.ToString();
+            if (addToggled)
+            {
+                Rectangle rectangle = RectangleDrawer.Draw(this);
+                tempLabel.Text = rectangle.X.ToString() + " " + rectangle.Y.ToString() + " " + rectangle.Width.ToString() + " " + rectangle.Height.ToString();
+                
+                // the bounds of the PictureBox screen within the form
+                int leftScreenBound = screen.Location.X;
+                int rightScreenBound = screen.Location.X + screen.Width;
+                int topScreenBound = screen.Location.Y;
+                int bottomScreenBound = screen.Location.Y + screen.Height;
+
+                // Math.Max and Min can't handle negative values, which are possible when the user clicks outside the form
+                if (rectangle.X < 0)
+                {
+                    rectangle.Width += rectangle.X;
+                    rectangle.X = 0;
+                }
+
+                if (rectangle.Y < 0)
+                {
+                    rectangle.Height += rectangle.Y;
+                    rectangle.Y = 0;
+                }
+
+                // bound the deadzone's coordinates by the screen's bounds,
+                // but in terms of the form's coordinate system -- (0,0) at upper left corner
+                // note that because the MouseDown Event is on the screen, xMin <= rightScreenBound 
+                // and yMin <= bottomScreenBound
+                // similarly, xMax >= leftScreenBound and yMax >= topBound
+                int xMin = Math.Max(rectangle.X, leftScreenBound);
+                int yMin = Math.Max(rectangle.Y, topScreenBound);
+                int xMax = Math.Min(rectangle.X + rectangle.Width, rightScreenBound);
+                int yMax = Math.Min(rectangle.Y + rectangle.Height, bottomScreenBound);
+
+                deadzone = new Rectangle(xMin, yMin, xMax - xMin, yMax - yMin);
+                tempLabel.Text = deadzone.X.ToString() + " " + deadzone.Y.ToString() + " " + deadzone.Width.ToString() + " " + deadzone.Height.ToString();
+                //***zoneMask = DeadZoneDrawer.DrawDeadZone(deadzone);
+                zoneMaskPanel.Location = deadzone.Location;
+                zoneMaskPanel.Size = deadzone.Size;
+                zoneMaskPanel.Visible = true;
+
+                // now find the areas to monitor not including the deadzone
+                areasToMonitor = new Rectangle[4];
+                areasToMonitor[0] = new Rectangle(0, 0, xMin - leftScreenBound, bottomScreenBound - topScreenBound);
+                areasToMonitor[1] = new Rectangle(xMin - leftScreenBound, 0, xMax - xMin, yMin - topScreenBound);
+                areasToMonitor[2] = new Rectangle(xMin - leftScreenBound, yMax - topScreenBound, xMax - xMin, bottomScreenBound - yMax);
+                areasToMonitor[3] = new Rectangle(xMax - leftScreenBound, 0, rightScreenBound - xMax, bottomScreenBound - topScreenBound);
+            }
+            else if (removeToggled)
+            {
+                // for now, this simply removes the deadzone;
+                //note: Rectangles are not nullable, so we remove the areas to be monitored
+                areasToMonitor = null;
+                zoneMaskPanel.Visible = false;
+            }
+        }
+
+        public Rectangle[] getAreaToMonitor()
+        {
+            if (areasToMonitor == null)
+            {
+                areasToMonitor = new Rectangle[1];
+                areasToMonitor[0] = new Rectangle(screen.Location.X, screen.Location.Y, screen.Width, screen.Height);
+            }
+            return areasToMonitor;
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -100,6 +166,7 @@ namespace WindowsFormsApplication1
             if (staticImageCaptured)
             {
                 addToggled = true;
+                tempLabel.Text = "addToggled " + addToggled.ToString();
                 removeToggled = false;
             }
         }
@@ -117,6 +184,9 @@ namespace WindowsFormsApplication1
         {
             addToggled = false;
             removeToggled = false;
+            areasToMonitor = null;
+            zoneMaskPanel.Visible = false;
+            tempLabel.Text = "Reset has been pressed";
 
             // the video stream can start again
             staticImageCaptured = false;
@@ -128,9 +198,11 @@ namespace WindowsFormsApplication1
 
         private void quit_Form(object sender, FormClosingEventArgs e)
         {
-            cam.SignalToStop();
-            cam.Stop();
-            return;
+            if (cam != null)
+            {
+                cam.SignalToStop();
+                cam.Stop();
+            }
         }
     }
 

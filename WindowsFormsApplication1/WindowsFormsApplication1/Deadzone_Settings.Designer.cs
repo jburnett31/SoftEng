@@ -45,6 +45,7 @@
             this.captureButton = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.tempLabel = new System.Windows.Forms.Label();
+            this.zoneMaskPanel = new System.Windows.Forms.Panel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.screen)).BeginInit();
             this.SuspendLayout();
@@ -188,13 +189,13 @@
             this.screen.Size = new System.Drawing.Size(641, 475);
             this.screen.TabIndex = 19;
             this.screen.TabStop = false;
-            this.screen.Click += new System.EventHandler(this.screen_MouseDown);
+            this.screen.MouseDown += new System.Windows.Forms.MouseEventHandler(this.screen_MouseDown);
             // 
             // captureButton
             // 
-            this.captureButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.captureButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.captureButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.captureButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.captureButton.Location = new System.Drawing.Point(846, 253);
@@ -203,6 +204,7 @@
             this.captureButton.TabIndex = 17;
             this.captureButton.Text = "Capture Image";
             this.captureButton.UseVisualStyleBackColor = false;
+            this.captureButton.Click += new System.EventHandler(this.captureButton_Click);
             // 
             // button7
             // 
@@ -224,6 +226,15 @@
             this.tempLabel.TabIndex = 23;
             this.tempLabel.Text = "This text should change...";
             // 
+            // zoneMaskPanel
+            // 
+            this.zoneMaskPanel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.zoneMaskPanel.Location = new System.Drawing.Point(160, 200);
+            this.zoneMaskPanel.Name = "zoneMaskPanel";
+            this.zoneMaskPanel.Size = new System.Drawing.Size(86, 70);
+            this.zoneMaskPanel.TabIndex = 24;
+            this.zoneMaskPanel.Visible = false;
+            // 
             // Deadzone_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,6 +242,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1008, 687);
+            this.Controls.Add(this.zoneMaskPanel);
             this.Controls.Add(this.tempLabel);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.captureButton);
@@ -272,5 +284,6 @@
         private System.Windows.Forms.Button captureButton;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label tempLabel;
+        private System.Windows.Forms.Panel zoneMaskPanel;
     }
 }
