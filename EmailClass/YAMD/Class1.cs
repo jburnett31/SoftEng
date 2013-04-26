@@ -16,7 +16,7 @@ namespace SendMailViaGmail
 
         public Emailer()
         {
-            recipient = new MailAddress("bseaba@gmail.com");
+            recipient = new MailAddress("yamdmotiondetection@gmail.com");
         }
 
         public Emailer(string recipientAddress)
@@ -37,9 +37,7 @@ namespace SendMailViaGmail
             string body = "Beginning at " + beginTime.ToString("T") + " on " + beginTime.ToString("yyyy-M-d")
                 + ", YAMD detected motion for " + endTime.Subtract(beginTime).ToString() + " ending at " + endTime.ToString("T")
                 + ". See the attachment for an image taken at the beginning of the event.\n"
-                + "\n\nFollow this link to watch the video captured:\n" + videoLink;
-            /*"<A HREF=" + videoLink + ">Link to Video</A>  message.IsBodyHtml = true;"*/
-            
+                + "\n\nFollow this link to watch the video captured:\n" + videoLink; 
 
             try
             {
