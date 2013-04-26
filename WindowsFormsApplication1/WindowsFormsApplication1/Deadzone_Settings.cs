@@ -17,6 +17,7 @@ namespace WindowsFormsApplication1
     {
         public VideoCaptureDevice cam = null;
         public FilterInfoCollection usbCam;
+        public int i;
 
         public bool addToggled = false;
         public bool removeToggled = false;
@@ -53,7 +54,6 @@ namespace WindowsFormsApplication1
 
         void cam_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-
             screen.Image = (Bitmap)eventArgs.Frame.Clone();
         }
 
@@ -61,31 +61,30 @@ namespace WindowsFormsApplication1
         {
             usbCam = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
-            foreach (FilterInfo camera in usbCam)
+            for (i = 0; i < usbCam.Count; i++)
             {
-                
+                try
+                {
+                    cam = new VideoCaptureDevice(usbCam[i].MonikerString);
+                    break;
+                }
+                catch
+                {
+                }
             }
-            if (usbCam.Count >= 1)
-            {
-                usbCam = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            cam.NewFrame += new NewFrameEventHandler(cam_NewFrame);
 
-                cam = new VideoCaptureDevice(usbCam[1].MonikerString);
+            cam.Start();
 
-                cam.NewFrame += new NewFrameEventHandler(cam_NewFrame);
-
-                addButton.Hide();
-
-                cam.Start();
-            }
-            else
-            {
-                MessageBox.Show("YAMD cannot detect an available webcam. Please make sure that your device is property plugged into your computer and try again");
-            }
         }
+
+        //  MessageBox.Show("YAMD cannot detect an available webcam. Please make sure that your device is property plugged into your computer and try again");
+
+
         //******************** Making Dead Zones ************************************************
         private void captureButton_Click(object sender, EventArgs e)
         {
-            screen.Image = (Bitmap)cam.SnapshotFrame;
+            // screen.Image = (Bitmap)cam.SnapshotFrame;
         }
 
         private void screen_MouseDown(object sender, EventArgs e)
@@ -125,84 +124,89 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void captureButton_Click_1(object sender, EventArgs e)
+        private void quit_Form(object sender, FormClosingEventArgs e)
         {
-
+            cam.SignalToStop();
+            cam.Stop();
+            return;
         }
     }
 
     //************************ RectangleDrawer class *********************************************
 
     public static class RectangleDrawer
+    {
+        private static Form mMask;
+        private static Point mPos;
+        private static int x;
+        private static int y;
+        private static int w;
+        private static int h;
+
+        public static Rectangle Draw(Form parent)
         {
-            private static Form mMask;
-            private static Point mPos;
-            private static int x;
-            private static int y;
-            private static int w;
-            private static int h;
-
-            public static Rectangle Draw(Form parent)
-            {
-                // Record the start point
-                mPos = parent.PointToClient(Control.MousePosition);
-                // Create a transparent form on top of <frm>
-                mMask = new Form();
-                mMask.FormBorderStyle = FormBorderStyle.None;
-                mMask.BackColor = Color.Aqua;
-                mMask.TransparencyKey = mMask.BackColor;
-                mMask.ShowInTaskbar = false;
-                mMask.StartPosition = FormStartPosition.Manual;
-                mMask.Size = parent.ClientSize;
-                mMask.Location = parent.PointToScreen(Point.Empty);
-                mMask.MouseMove += MouseMove;
-                mMask.MouseUp += MouseUp;
-                mMask.Paint += PaintRectangle;
-                mMask.Load += DoCapture;
-                // Display the overlay
-                mMask.ShowDialog(parent);
-                // Clean-up and calculate return value
-                mMask.Dispose();
-                mMask = null;
-                Point pos = parent.PointToClient(Control.MousePosition);
-                x = Math.Min(mPos.X, pos.X);
-                y = Math.Min(mPos.Y, pos.Y);
-                w = Math.Abs(mPos.X - pos.X);
-                h = Math.Abs(mPos.Y - pos.Y);
-                return new Rectangle(x, y, w, h);
-            }
-
-            private static void DoCapture(object sender, EventArgs e)
-            {
-                // Grab the mouse
-                mMask.Capture = true;
-            }
-
-            private static void MouseMove(object sender, MouseEventArgs e)
-            {
-                // Repaint the rectangle
-                mMask.Invalidate();
-            }
-
-            private static void MouseUp(object sender, MouseEventArgs e)
-            {
-                // Done, close mask
-                mMask.Close();
-            }
-
-            private static void PaintRectangle(object sender, PaintEventArgs e)
-            {
-                // Draw the current rectangle
-                Point pos = mMask.PointToClient(Control.MousePosition);
-                using (Pen pen = new Pen(Brushes.Black))
-                {
-                    pen.DashStyle = DashStyle.Dot;
-                    e.Graphics.DrawLine(pen, mPos.X, mPos.Y, pos.X, mPos.Y);
-                    e.Graphics.DrawLine(pen, pos.X, mPos.Y, pos.X, pos.Y);
-                    e.Graphics.DrawLine(pen, pos.X, pos.Y, mPos.X, pos.Y);
-                    e.Graphics.DrawLine(pen, mPos.X, pos.Y, mPos.X, mPos.Y);
-                }
-            }
+            // Record the start point
+            mPos = parent.PointToClient(Control.MousePosition);
+            // Create a transparent form on top of <frm>
+            mMask = new Form();
+            mMask.FormBorderStyle = FormBorderStyle.None;
+            mMask.BackColor = Color.Aqua;
+            mMask.TransparencyKey = mMask.BackColor;
+            mMask.ShowInTaskbar = false;
+            mMask.StartPosition = FormStartPosition.Manual;
+            mMask.Size = parent.ClientSize;
+            mMask.Location = parent.PointToScreen(Point.Empty);
+            mMask.MouseMove += MouseMove;
+            mMask.MouseUp += MouseUp;
+            mMask.Paint += PaintRectangle;
+            mMask.Load += DoCapture;
+            // Display the overlay
+            mMask.ShowDialog(parent);
+            // Clean-up and calculate return value
+            mMask.Dispose();
+            mMask = null;
+            Point pos = parent.PointToClient(Control.MousePosition);
+            x = Math.Min(mPos.X, pos.X);
+            y = Math.Min(mPos.Y, pos.Y);
+            w = Math.Abs(mPos.X - pos.X);
+            h = Math.Abs(mPos.Y - pos.Y);
+            return new Rectangle(x, y, w, h);
         }
 
+        private static void DoCapture(object sender, EventArgs e)
+        {
+            // Grab the mouse
+            mMask.Capture = true;
+        }
+
+        private static void MouseMove(object sender, MouseEventArgs e)
+        {
+            // Repaint the rectangle
+            mMask.Invalidate();
+        }
+
+        private static void MouseUp(object sender, MouseEventArgs e)
+        {
+            // Done, close mask
+            mMask.Close();
+        }
+
+        private static void PaintRectangle(object sender, PaintEventArgs e)
+        {
+            // Draw the current rectangle
+            Point pos = mMask.PointToClient(Control.MousePosition);
+            using (Pen pen = new Pen(Brushes.Black))
+            {
+                pen.DashStyle = DashStyle.Dot;
+                e.Graphics.DrawLine(pen, mPos.X, mPos.Y, pos.X, mPos.Y);
+                e.Graphics.DrawLine(pen, pos.X, mPos.Y, pos.X, pos.Y);
+                e.Graphics.DrawLine(pen, pos.X, pos.Y, mPos.X, pos.Y);
+                e.Graphics.DrawLine(pen, mPos.X, pos.Y, mPos.X, mPos.Y);
+            }
+        }
+    }
 }
+
+
+
+

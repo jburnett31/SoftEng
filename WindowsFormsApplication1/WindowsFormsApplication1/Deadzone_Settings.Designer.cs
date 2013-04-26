@@ -43,7 +43,6 @@
             this.removeButton = new System.Windows.Forms.Button();
             this.screen = new System.Windows.Forms.PictureBox();
             this.captureButton = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.button7 = new System.Windows.Forms.Button();
             this.tempLabel = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
@@ -184,18 +183,18 @@
             // 
             // screen
             // 
-            this.screen.Location = new System.Drawing.Point(63, 182);
+            this.screen.Location = new System.Drawing.Point(160, 200);
             this.screen.Name = "screen";
-            this.screen.Size = new System.Drawing.Size(780, 493);
+            this.screen.Size = new System.Drawing.Size(641, 475);
             this.screen.TabIndex = 19;
             this.screen.TabStop = false;
             this.screen.Click += new System.EventHandler(this.screen_MouseDown);
             // 
             // captureButton
             // 
-            this.captureButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.captureButton.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.captureButton.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.captureButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.captureButton.Location = new System.Drawing.Point(846, 253);
@@ -204,16 +203,6 @@
             this.captureButton.TabIndex = 17;
             this.captureButton.Text = "Capture Image";
             this.captureButton.UseVisualStyleBackColor = false;
-            this.captureButton.Click += new System.EventHandler(this.captureButton_Click_1);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(563, 57);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(244, 13);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "***Put hover instructions to get out of viewing area";
             // 
             // button7
             // 
@@ -244,7 +233,6 @@
             this.ClientSize = new System.Drawing.Size(1008, 687);
             this.Controls.Add(this.tempLabel);
             this.Controls.Add(this.button7);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.captureButton);
             this.Controls.Add(this.screen);
             this.Controls.Add(this.removeButton);
@@ -256,6 +244,7 @@
             this.Controls.Add(this.button1);
             this.Name = "Deadzone_Settings";
             this.Text = "Deadzone Settings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.quit_Form);
             this.Load += new System.EventHandler(this.Deadzone_Settings_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -281,7 +270,6 @@
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.PictureBox screen;
         private System.Windows.Forms.Button captureButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label tempLabel;
     }

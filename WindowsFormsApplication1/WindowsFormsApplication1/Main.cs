@@ -105,12 +105,6 @@ namespace WindowsFormsApplication1
             deadzone_Settings.Show();
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            Webcam_recording webcam = new Webcam_recording();
-            webcam.Show();
-        }
-
         private void main_Form_Load(object sender, EventArgs e)
         {
             label1.Hide();
