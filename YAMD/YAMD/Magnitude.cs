@@ -16,12 +16,12 @@ namespace YAMD
         private int sensitivity;
         public Level Severity
         { get { return severity; } }
-        public int Duration
+        public long Duration
         { get { return duration; }}
         public int Sensitivity
         { get { return sensitivity; }}
 
-        public Magnitude(Level severity, int duration, int sensitivity)
+        public Magnitude(Level severity, long duration, int sensitivity)
         {
             this.severity = severity;
             this.duration = duration;

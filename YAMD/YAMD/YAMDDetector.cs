@@ -24,7 +24,7 @@ namespace YAMD
         AsyncVideoSource inputStream;
         Stopwatch timer;
         Stopwatch stoptimer;
-        const float stopCondition = 5.0f;
+        const int stopCondition = 5000;
         VideoFileWriter videoRecorder;
         FixedSizeQueue<Bitmap> buffer;
         public bool Running
@@ -37,6 +37,8 @@ namespace YAMD
         private Bitmap screenshot;
         private String filename;
         Queue<int> magnitudes;
+        int videoMagnitude;
+        bool gotMagnitude;
 
         // event handler
         public delegate void MotionEventHandler(object sender, MotionEventArgs a);
@@ -64,7 +66,12 @@ namespace YAMD
 
         ~YAMDDetector()
         {
-           
+          
+        }
+
+        public void setMotionZones(Rectangle[] mzs)
+        {
+            detector.MotionZones = mzs;
         }
 
         public void Start()
@@ -145,6 +152,7 @@ namespace YAMD
                 {
                     screenshot = image;
                     stoptimer.Reset();
+                    gotMagnitude = false;
                     timer.Start();
                     filename = DateTime.Now.ToShortDateString() + DateTime.Now.ToString("HH mm") + ".avi";
                     StartRecording(filename);
@@ -153,10 +161,32 @@ namespace YAMD
                 {
                     buffer.Enqueue(image);
                     if (Recording && stoptimer.IsRunning)
-                        if (stoptimer.ElapsedMilliseconds > Timeout)
+                        if (timer.ElapsedMilliseconds > Timeout || stoptimer.ElapsedMilliseconds > stopCondition)
                         {
                             StopRecording();
+                            long vidDuration = timer.ElapsedMilliseconds;
+                            timer.Reset();
+                            stoptimer.Reset();
+                            magnitudes.Clear();
+                            Magnitude n;
+                            switch (videoMagnitude)
+                            {
+                                case 3:
+                                    n = new Magnitude(Level.High, vidDuration, high.Sensitivity);
+                                    break;
+                                case 2:
+                                    n = new Magnitude(Level.Medium, vidDuration, medium.Sensitivity);
+                                    break;
+                                default:
+                                    n = new Magnitude(Level.Low, vidDuration, low.Sensitivity);
+                                    break;
+                            }
                             OnMotionEvent(new MotionEventArgs(m, filename, ref screenshot));
+                        }
+                        else if (timer.ElapsedMilliseconds >= 5000 || timer.ElapsedMilliseconds <= 6000 && !gotMagnitude)
+                        {
+                            videoMagnitude = checkMagnitude(ref magnitudes);
+                            gotMagnitude = true;
                         }
                     else
                         stoptimer.Start();
@@ -186,10 +216,11 @@ namespace YAMD
              */
         }
 
-        private int checkMagnitude(Queue<int> mags, int duration)
+        private int checkMagnitude(ref Queue<int> mags)
         {
-    
-            return 0;
+            double avg = mags.Average();
+            mags.Clear();
+            return (int)Math.Round(avg);
         }
     }
 }
