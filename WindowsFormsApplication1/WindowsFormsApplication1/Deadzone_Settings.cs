@@ -75,7 +75,7 @@ namespace WindowsFormsApplication1
                 }
                 catch
                 {
-                    return;
+                    //return;
                 }
             }
         }

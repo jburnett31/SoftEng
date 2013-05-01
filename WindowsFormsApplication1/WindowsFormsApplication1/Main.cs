@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Net;
+using System.Net.Mail;
+
 using AForge.Video;
 using AForge.Video.DirectShow;
 
@@ -15,11 +18,13 @@ namespace WindowsFormsApplication1
 {
     public partial class main_Form : Form
     {
+        public Emailer mailMan;
+
         public main_Form()
         {
             
             InitializeComponent();
-
+            mailMan = new WindowsFormsApplication1.Emailer();
         }
 
         VideoCaptureDevice cam;
@@ -49,6 +54,7 @@ namespace WindowsFormsApplication1
              label5.Hide();
 
              cam.Start();
+            //this is where the YAMDDetector needs to be created
         }
 
         void cam_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
@@ -132,6 +138,112 @@ namespace WindowsFormsApplication1
                 return;
             }
 
+        }
+
+        private void sendNotification()
+        {
+            mailMan.sendNotification(DateTime.Today, DateTime.Now, "image.jpg", "Magnitude");
+            // replace image.jpg with whatever the actual name of the jpg file is
+        }
+
+        private void sendToDropbox()
+        {
+            // replace string with whatever the actual name of the video file is
+            mailMan.sendToDropbox("C:\\Users\\Rachel\\Desktop\\Movies\\ButterflyMovie.wlmp");
+        }
+    }
+
+    public class Emailer
+    {
+        MailAddress dropbox = new MailAddress("yamd_fbc7@sendtodropbox.com", "YAMD");
+        const string sendersPassword = "d0n0tsh@r3";
+        const string senderAddress = "yamdmotiondetection@gmail.com";
+        MailAddress sender = new MailAddress(senderAddress, "YAMD Software");
+        MailAddress recipient;
+        const string videoLink = "https://www.dropbox.com/sh/opu4kl7ayidvyic/EZAl1kEbTZ";
+
+        public Emailer()
+        {
+            recipient = new MailAddress("yamdmotiondetection@gmail.com");
+        }
+
+        public Emailer(string recipientAddress)
+        {
+            recipient = new MailAddress(recipientAddress);
+        }
+
+        public void setRecipient(string recipientAddress)
+        {
+            recipient = new MailAddress(recipientAddress);
+        }
+
+        public void sendNotification(DateTime beginTime, DateTime endTime,
+                                    string imageLocation, string magnitudeLevel)
+        {
+
+            string subject = magnitudeLevel + "-level Event Detected";
+            string body = "Beginning at " + beginTime.ToString("T") + " on " + beginTime.ToString("yyyy-M-d")
+                + ", YAMD detected motion for " + endTime.Subtract(beginTime).ToString() + " ending at " + endTime.ToString("T")
+                + ". See the attachment for an image taken at the beginning of the event.\n"
+                + "\n\nFollow this link to watch the video captured:\n" + videoLink;
+
+            try
+            {
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(senderAddress, sendersPassword),
+                    Timeout = 20000
+                };
+                MailMessage message = new MailMessage(sender, recipient);
+
+                message.Subject = subject;
+                message.Body = body;
+                Attachment attachment = new Attachment(imageLocation);
+
+                message.Attachments.Add(attachment);
+                smtp.Send(message);
+                Console.WriteLine("Message Sent Successfully");
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(SmtpDeliveryMethod.Network.ToString());
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
+            }
+        }
+
+        public void sendToDropbox(string videoLocation)
+        {
+            try
+            {
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new NetworkCredential(senderAddress, sendersPassword),
+                    Timeout = 20000
+                };
+                MailMessage message = new MailMessage(sender, dropbox);
+                Attachment attachment = new Attachment(videoLocation);
+
+                message.Attachments.Add(attachment);
+                smtp.Send(message);
+                Console.WriteLine("Message Sent Successfully");
+                Console.ReadKey();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(SmtpDeliveryMethod.Network.ToString());
+                Console.WriteLine(ex.Message);
+                Console.ReadKey();
+            }
         }
     }
 }
