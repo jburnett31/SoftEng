@@ -2,3 +2,4 @@ C:\Users\Rachel\Documents\GitHub\SoftEng\EmailClass\YAMD\obj\x86\Debug\YAMD.exe
 C:\Users\Rachel\Documents\GitHub\SoftEng\EmailClass\YAMD\obj\x86\Debug\YAMD.pdb
 C:\Users\Rachel\Documents\GitHub\SoftEng\EmailClass\YAMD\bin\Debug\YAMD.exe
 C:\Users\Rachel\Documents\GitHub\SoftEng\EmailClass\YAMD\bin\Debug\YAMD.pdb
+C:\Users\Rachel\Documents\GitHub\SoftEng\EmailClass\YAMD\obj\x86\Debug\EmailClass.csprojResolveAssemblyReference.cache

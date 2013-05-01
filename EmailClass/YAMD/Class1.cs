@@ -13,6 +13,7 @@ namespace SendMailViaGmail
         const string senderAddress = "yamdmotiondetection@gmail.com";
         MailAddress sender = new MailAddress(senderAddress, "YAMD Software");
         MailAddress recipient;
+        const string videoLink = "https://www.dropbox.com/sh/opu4kl7ayidvyic/EZAl1kEbTZ";
 
         public Emailer()
         {
@@ -30,7 +31,7 @@ namespace SendMailViaGmail
         }
 
         public void sendNotification(DateTime beginTime, DateTime endTime,
-                                    string imageLocation, string videoLink, string magnitudeLevel)
+                                    string imageLocation, string magnitudeLevel)
         {
             
             string subject = magnitudeLevel + "-level Event Detected";
