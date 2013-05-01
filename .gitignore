@@ -1,3 +1,6 @@
 *.cmake
 *.o
 *.jpg
+*.exe
+*.cache
+*.pdb
