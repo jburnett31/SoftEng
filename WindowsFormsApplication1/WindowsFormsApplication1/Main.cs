@@ -19,12 +19,19 @@ namespace WindowsFormsApplication1
     public partial class main_Form : Form
     {
         public Emailer mailMan;
+        //public YAMDDetector detector;
+        public Magnitude low;
+        public Magnitude medium;
+        public Magnitude high;
 
         public main_Form()
         {
             
             InitializeComponent();
             mailMan = new WindowsFormsApplication1.Emailer();
+            low = new Magnitude(Level.Low, (long).1, 1);
+            medium = new Magnitude(Level.Medium, (long).2, 2);
+            high = new Magnitude(Level.High, (long).3, 3);
         }
 
         VideoCaptureDevice cam;
@@ -55,6 +62,9 @@ namespace WindowsFormsApplication1
 
              cam.Start();
             //this is where the YAMDDetector needs to be created
+            //detector = new YAMDDetector(cam, low, medium, high);
+            //detector.RaiseMotionEvent += sendNotification();
+            //detector.RaiseMotionEvent += sendToDropbox();
         }
 
         void cam_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
@@ -140,19 +150,47 @@ namespace WindowsFormsApplication1
 
         }
 
-        private void sendNotification()
+        private void sendNotification(object sender, MotionEventArgs e)
         {
-            mailMan.sendNotification(DateTime.Today, DateTime.Now, "image.jpg", "Magnitude");
+            private JPEGStream image = e.Screenshot;
+            //save the image
+            mailMan.sendNotification(DateTime.Today, DateTime.Now, image, "Magnitude");
             // replace image.jpg with whatever the actual name of the jpg file is
         }
 
-        private void sendToDropbox()
+        private void sendToDropbox(object sender, MotionEventArgs e)
         {
             // replace string with whatever the actual name of the video file is
             mailMan.sendToDropbox("C:\\Users\\Rachel\\Desktop\\Movies\\ButterflyMovie.wlmp");
         }
     }
 
+    //************************************* MAGNITUDE *************************************************
+    public enum Level { Low, Medium, High };
+
+    public class Magnitude
+    {
+        private Level severity;
+        // duration should be in milliseconds to avoid floating point comparisons
+        private long duration;
+        private int sensitivity;
+        public Level Severity
+        { get { return severity; } }
+        public long Duration
+        { get { return duration; } }
+        public int Sensitivity
+        { get { return sensitivity; } }
+
+        public Magnitude(Level severity, long duration, int sensitivity)
+        {
+            this.severity = severity;
+            this.duration = duration;
+            this.sensitivity = sensitivity;
+        }
+    }
+
+
+    //************************************* EMAIL CLASS ************************************************
     public class Emailer
     {
         MailAddress dropbox = new MailAddress("yamd_fbc7@sendtodropbox.com", "YAMD");
