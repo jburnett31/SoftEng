@@ -39,6 +39,7 @@ namespace YAMD
         Queue<int> magnitudes;
         int videoMagnitude;
         bool gotMagnitude;
+		DateTime startTime;
 
         // event handler
         public delegate void MotionEventHandler(object sender, MotionEventArgs a);
@@ -92,6 +93,7 @@ namespace YAMD
             String videoName = name;
             consBuffer();
             Recording = true;
+			startTime = DateTime.Now;
         }
 
         public void StopRecording()
@@ -181,7 +183,7 @@ namespace YAMD
                                     n = new Magnitude(Level.Low, vidDuration, low.Sensitivity);
                                     break;
                             }
-                            OnMotionEvent(new MotionEventArgs(m, filename, ref screenshot));
+                            OnMotionEvent(new MotionEventArgs(m, filename, ref screenshot, startTime, DateTime.Now));
                         }
                         else if (timer.ElapsedMilliseconds >= 5000 || timer.ElapsedMilliseconds <= 6000 && !gotMagnitude)
                         {

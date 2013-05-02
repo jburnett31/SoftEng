@@ -152,7 +152,7 @@ namespace WindowsFormsApplication1
 
         private void sendNotification(object sender, MotionEventArgs e)
         {
-            private JPEGStream image = e.Screenshot;
+            JPEGStream image = e.Screenshot;
             //save the image
             mailMan.sendNotification(DateTime.Today, DateTime.Now, image, "Magnitude");
             // replace image.jpg with whatever the actual name of the jpg file is

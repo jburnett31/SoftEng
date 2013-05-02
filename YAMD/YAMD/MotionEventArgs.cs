@@ -15,12 +15,19 @@ namespace YAMD
         { get; set; }
         public Bitmap Screenshot
         { get; set; }
+		public DateTime startTime
+		{ get; set; }
+		public DateTime EndTime
+		{ get; set; }
 
-        public MotionEventArgs(Magnitude m, String name, ref Bitmap image)
+		public MotionEventArgs(Magnitude m, String name, ref Bitmap image, DateTime startTime, DateTime endTime)
         {
             Severity = m;
             VideoName = name;
             Screenshot = image;
+			StartTime = startTime;
+			EndTime = EndTime;
+
         }
     }
 }
