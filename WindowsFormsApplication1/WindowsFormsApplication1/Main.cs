@@ -23,6 +23,7 @@ using AForge.Vision.Motion;
 using AForge.Video.VFW;
 using AForge.Video.FFMPEG;
 using System.Diagnostics;
+using AForge.Imaging;
 
 using System.Collections.Concurrent;
 
@@ -72,11 +73,12 @@ namespace WindowsFormsApplication1
              label1.Show();
              label5.Hide();
 
-             cam.Start();
+            //cam.Start();
             //this is where the YAMDDetector needs to be created
             detector = new YAMDDetector(cam, low, medium, high);
             detector.RaiseMotionEvent += sendNotification;
             detector.RaiseMotionEvent += sendToDropbox;
+            detector.Start();
         }
 
         void cam_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
@@ -367,6 +369,8 @@ namespace WindowsFormsApplication1
         int videoMagnitude;
         bool gotMagnitude;
         DateTime startTime;
+        int vidHeight;
+        int vidWidth;
 
         // event handler
         public delegate void MotionEventHandler(object sender, MotionEventArgs a);
@@ -379,7 +383,7 @@ namespace WindowsFormsApplication1
                 new BlobCountingObjectsProcessing(true));
             //async video source processes images in a separate thread and uses the NewFrame event
             inputStream = new AsyncVideoSource(source);
-            inputStream.NewFrame += inputStream_NewFrame;
+            inputStream.NewFrame += new NewFrameEventHandler(inputStream_NewFrame);
             this.low = low;
             this.medium = medium;
             this.high = high;
@@ -417,10 +421,11 @@ namespace WindowsFormsApplication1
 
         public void StartRecording(String name)
         {
-            String videoName = name;
-            consBuffer();
+            Console.WriteLine("Video Name: " + name);
             Recording = true;
             startTime = DateTime.Now;
+            videoRecorder.Open(name, vidWidth, vidHeight, 24, VideoCodec.MPEG4);
+            consBuffer();
         }
 
         public void StopRecording()
@@ -432,7 +437,9 @@ namespace WindowsFormsApplication1
         {
             for (int i = 0; i < buffer.Size(); i++)
             {
-                Bitmap img = buffer.Dequeue();
+                Bitmap orig = buffer.Dequeue();
+                Bitmap img = AForge.Imaging.Image.Clone(orig, PixelFormat.Format24bppRgb);
+                    //orig.Clone(new Rectangle(0, 0, orig.Width, orig.Height), PixelFormat.Format24bppRgb);
                 videoRecorder.WriteVideoFrame(img);
             }
         }
@@ -450,8 +457,11 @@ namespace WindowsFormsApplication1
         {
             lock (this)
             {
-                
-                Bitmap image = e.Frame;
+                //Console.WriteLine("Detector: new frame event called");
+                Bitmap tmp = e.Frame;
+                Bitmap image = tmp.Clone(new Rectangle(0, 0, tmp.Width, tmp.Height), PixelFormat.Format24bppRgb);
+                vidWidth = image.Width;
+                vidHeight = image.Height;
                 Magnitude m = null;
                 float motionLevel = detector.ProcessFrame(image);
                 int level = (int)Math.Floor(motionLevel * 100);
@@ -484,7 +494,7 @@ namespace WindowsFormsApplication1
                     stoptimer.Reset();
                     gotMagnitude = false;
                     timer.Start();
-                    filename = DateTime.Now.ToShortDateString() + DateTime.Now.ToString("HH mm") + ".avi";
+                    filename = DateTime.Now.ToString("yyyy-M-d") + DateTime.Now.ToString("HH mm") + ".avi";
                     StartRecording(filename);
                 }
                 else
