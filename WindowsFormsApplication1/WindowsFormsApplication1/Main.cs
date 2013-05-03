@@ -75,8 +75,8 @@ namespace WindowsFormsApplication1
              cam.Start();
             //this is where the YAMDDetector needs to be created
             detector = new YAMDDetector(cam, low, medium, high);
-            detector.RaiseMotionEvent += sendNotification();
-            detector.RaiseMotionEvent += sendToDropbox();
+            detector.RaiseMotionEvent += sendNotification;
+            detector.RaiseMotionEvent += sendToDropbox;
         }
 
         void cam_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
