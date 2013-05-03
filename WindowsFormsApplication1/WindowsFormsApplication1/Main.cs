@@ -31,7 +31,7 @@ namespace WindowsFormsApplication1
     public partial class main_Form : Form
     {
         public Emailer mailMan;
-        //public YAMDDetector detector;
+        public YAMDDetector detector;
         public Magnitude low;
         public Magnitude medium;
         public Magnitude high;
@@ -74,9 +74,9 @@ namespace WindowsFormsApplication1
 
              cam.Start();
             //this is where the YAMDDetector needs to be created
-            //detector = new YAMDDetector(cam, low, medium, high);
-            //detector.RaiseMotionEvent += sendNotification();
-            //detector.RaiseMotionEvent += sendToDropbox();
+            detector = new YAMDDetector(cam, low, medium, high);
+            detector.RaiseMotionEvent += sendNotification();
+            detector.RaiseMotionEvent += sendToDropbox();
         }
 
         void cam_NewFrame(object sender, AForge.Video.NewFrameEventArgs eventArgs)
@@ -229,7 +229,7 @@ namespace WindowsFormsApplication1
             this.sensitivity = sensitivity;
         }
 
-        public string ToString()
+        public override string ToString()
         {
             string[] levels = { "Low", "Medium", "High" };
             return levels[(int)Severity];
@@ -522,28 +522,6 @@ namespace WindowsFormsApplication1
                             stoptimer.Start();
                 }
             }
-            /*
-            lock (this)
-            {
-                float motionLevel = detector.ProcessFrame(image);
-
-                if (motionLevel > motionAlarmLevel)
-                {
-                    // flash for 2 seconds
-                    flash = (int)(2 * (1000 / alarmTimer.Interval));
-                }
-
-                // accumulate history
-                motionHistory.Add(motionLevel);
-                if (motionHistory.Count > 300)
-                {
-                    motionHistory.RemoveAt(0);
-                }
-
-                if (showMotionHistoryToolStripMenuItem.Checked)
-                    DrawMotionHistory(image);
-            }
-             */
         }
 
         private int checkMagnitude(ref Queue<int> mags)
