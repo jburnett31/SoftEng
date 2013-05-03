@@ -21,8 +21,6 @@ namespace WindowsFormsApplication1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            main_Form main = new main_Form();
-            main.Show();
             this.Close();
         }
 

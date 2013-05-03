@@ -51,13 +51,6 @@ namespace WindowsFormsApplication1
 
         private void button3_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-            main_Form main = new main_Form();
-            main.Show();
             this.Close();
         }
 
