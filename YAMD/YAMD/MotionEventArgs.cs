@@ -15,7 +15,7 @@ namespace YAMD
         { get; set; }
         public Bitmap Screenshot
         { get; set; }
-		public DateTime startTime
+		public DateTime StartTime
 		{ get; set; }
 		public DateTime EndTime
 		{ get; set; }
