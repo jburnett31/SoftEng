@@ -26,3 +26,8 @@ C:\Users\Jeff\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsAppl
 C:\Users\Jeff\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\YAMD SYSTEMS.csproj.GenerateResource.Cache
 C:\Users\Jeff\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\YAMD_SYSTEMS.exe
 C:\Users\Jeff\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\YAMD_SYSTEMS.pdb
+C:\Users\Jeff\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\YAMD SYSTEMS.csprojResolveAssemblyReference.cache
+C:\Users\Jeff\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\bin\x86\Debug\YAMD_SYSTEMS.exe.manifest
+C:\Users\Jeff\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\bin\x86\Debug\YAMD_SYSTEMS.application
+C:\Users\Jeff\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\YAMD_SYSTEMS.exe.manifest
+C:\Users\Jeff\Documents\GitHub\SoftEng\WindowsFormsApplication1\WindowsFormsApplication1\obj\x86\Debug\YAMD_SYSTEMS.application
